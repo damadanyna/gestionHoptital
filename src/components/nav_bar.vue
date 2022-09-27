@@ -1,80 +1,133 @@
 <template>
-  <nav class="w-full flex flex-col bg-gray-700 px-4 py-4">
-    <div
-      class="flex-col items-center text-xs font-medium sm:text-base lg:flex-row w-full flex justify-center border-b border-gray-500 py-3"
-    >
-      <svg class="w-14" viewBox="0 0 24 24">
-        <path
-          class="fill-current text-white"
-          d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 6.39A9.973 9.973 0 0 0 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8-3 0-5.61-1.66-7-4.11L6.75 14v-1A1.25 1.25 0 0 1 8 11.75 1.25 1.25 0 0 1 9.25 13v1H12m4-2.25A1.25 1.25 0 0 0 14.75 13 1.25 1.25 0 0 0 16 14.25 1.25 1.25 0 0 0 17.25 13 1.25 1.25 0 0 0 16 11.75z"
-        />
-      </svg>
-      <span class="ml-4 font-bold text-white uppercase text-center">
-        Réservatoin du table</span
-      >
-    </div>
-
-    <div class="flex flex-col mt-5">
-      <router-link
-        class="flex-col items-center text-xs font-medium sm:text-base lg:flex-row flex my-2 text-gray-400"
-        to="/home"
-      >
-        <svg class="w-7" viewBox="0 0 24 24">
-          <path
-            class="fill-current text-gray-400"
-            d="M13 3v6h8V3m-8 18h8V11h-8M3 21h8v-6H3m0-2h8V3H3v10z"
-          />
-        </svg>
-        <span class="hidden sm:flex"> Tableau de bord</span>
-      </router-link>
-      <router-link @click="this.$store.state.table=false"
-        class="flex-col items-center text-xs font-medium sm:text-base lg:flex-row flex my-2 text-gray-400"
-        to="/reservation"
-      >
-        <svg class="w-7" viewBox="0 0 24 24">
-          <path
-            class="fill-current text-gray-400"
-            d="m14 12-4-4v3H2v2h8v3m12-4a10 10 0 0 1-19.54 3h2.13a8 8 0 1 0 0-6H2.46A10 10 0 0 1 22 12z"
-          />
-        </svg>
-        <span class="hidden sm:flex">Reservation</span>
-      </router-link>
-      <router-link @click="this.$store.state.table=false"
-        class="flex-col items-center text-xs font-medium sm:text-base lg:flex-row flex my-2 text-gray-400"
-        to="/client"
-      >
-        <svg class="w-7" viewBox="0 0 24 24">
-          <path
-            class="fill-current text-gray-400"
-            d="M12 5a3.5 3.5 0 0 0-3.5 3.5A3.5 3.5 0 0 0 12 12a3.5 3.5 0 0 0 3.5-3.5A3.5 3.5 0 0 0 12 5m0 2a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 10a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 7M5.5 8A2.5 2.5 0 0 0 3 10.5c0 .94.53 1.75 1.29 2.18.36.2.77.32 1.21.32.44 0 .85-.12 1.21-.32.37-.21.68-.51.91-.87A5.42 5.42 0 0 1 6.5 8.5v-.28c-.3-.14-.64-.22-1-.22m13 0c-.36 0-.7.08-1 .22v.28c0 1.2-.39 2.36-1.12 3.31.12.19.25.34.4.49a2.482 2.482 0 0 0 1.72.7c.44 0 .85-.12 1.21-.32.76-.43 1.29-1.24 1.29-2.18A2.5 2.5 0 0 0 18.5 8M12 14c-2.34 0-7 1.17-7 3.5V19h14v-1.5c0-2.33-4.66-3.5-7-3.5m-7.29.55C2.78 14.78 0 15.76 0 17.5V19h3v-1.93c0-1.01.69-1.85 1.71-2.52m14.58 0c1.02.67 1.71 1.51 1.71 2.52V19h3v-1.5c0-1.74-2.78-2.72-4.71-2.95M12 16c1.53 0 3.24.5 4.23 1H7.77c.99-.5 2.7-1 4.23-1z"
-          />
-        </svg>
-        <span class="hidden sm:flex">Client</span>
-      </router-link>
-    </div>
+  <nav class="flex flex-col h-screen"> 
+    <div :class="wrapMenu ? 'w-56  ' : 'w-12  '" class="flex flex-col h-full rounded-r-2xl my-shadow bg-white" id="nav"  >
+      <!-- header-bar -->
+      <div  class="flex w-full   justify-between " :class="wrapMenu ? '  py-4' : 'mt-4'" >  
+        <div v-if="wrapMenu"  class=" flex items-center justify-center  ">
+          <svg class=" w-7" viewBox="0 0 24 24"><path d="M20 2v16c0 1.11-.89 2-2 2H6c-1.11 0-2-.89-2-2V2c0-1.105.89-2 2-2h1v7l2.5-1.5L12 7V0h6a2 2 0 0 1 2 2M7 24h2v-2H7v2m8 0h2v-2h-2v2m-4 0h2v-2h-2v2z" /></svg>
+          <span class=" text-2xl font-semibold text-violet-400"> Menu</span>
+        </div>
+        <div class=" px-2">
+          <svg  v-if="wrapMenu" viewBox="0 0 24 24" v-on:click="wrapMenu = false"  class=" w-6 transform hover:scale-150 cursor-pointer" >
+            <path  class="fill-current" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+          </svg>
+          <svg v-else  v-on:click="wrapMenu = true" viewBox="0 0 24 24" class="w-6 transform hover:scale-150 cursor-pointer" >
+            <path  class="fill-current"  d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z" />
+          </svg>
+        </div>
+      </div>
+      <!-- logo -->
+      <div v-if="wrapMenu" class="flex text-white flex-between px-2">
+        <div class=" flex flex-col">
+          <span class=" mt-2 text-xs font-bold text-center">HOPITAL LUTHERIENNE ANTSIRABE</span>
+       </div> 
+      </div> 
+      <!-- title -->
+      <div v-if="wrapMenu" class=" pt-14" ><span class=" delay-100 text-sm text-stone-400 text-center px-6" >APPS & PAGES</span></div>
+      <!-- liste -->
+      <div :class="wrapMenu ? '  px-6' : ''" class="flex flex-col mt-7">
+        <div class=" flex w-full"  v-for="liste,i in listItem" :key="i" >
+          <router-link :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-3 py-1  px-3'" :to="liste.url" class=" w-full " >
+            <div class="flex flex-row">
+              <div :title="liste.text"  v-html="liste.ico"></div>
+              <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </div> 
   </nav>
 </template>
-<script>
-export default {
-  name: "HelloWorld",
-  props: {
-    msg: String,
-  },
-  mounted() {
-    this.$store.state.params = null;
-  },
-};
-</script>
 
-<style scoped>
-nav a.router-link-exact-active {
-  color: #ffffff;
-  font-weight: bold;
-}
-nav a.router-link-exact-active path {
-  fill: #ffffff;
-}
-nav .router-link-exact-active {
-  transform: translateX(25px);
-}
+<script>
+  export default {
+    data() {
+      return {
+        listItem: [
+          {
+            text: 'Tableau de Bord',
+            url: '/',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24">
+            
+            <path 
+               class="fill-current" d="M17 17h-2v-4h2m-4 4h-2V7h2M9 17H7v-7h2m10-7H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+          </svg>`,
+          },
+          {
+            text: 'Patients',
+            url: '/patients',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24"> 
+            <path
+            class="fill-current"
+              d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.536 5.536 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13v-1.75M0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20H0m24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9V20z"
+            />  
+          </svg>`,
+          },
+          {
+            text: 'Stocks',
+            url: '/stocks',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24">
+           
+            <path 
+              class="fill-current" d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+          </svg>`,
+          },
+          {
+            text: 'Caisse',
+            url: '/caisse',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24">
+            <path
+              class="fill-current"
+              d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"
+            />
+          </svg>`,
+          },
+          {
+            text: 'Utilisateur',
+            url: '/utilisateur',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24"> 
+            <path
+                  class="fill-current"
+              d="M12 19.2c-2.5 0-4.71-1.28-6-3.2.03-2 4-3.1 6-3.1s5.97 1.1 6 3.1a7.232 7.232 0 0 1-6 3.2M12 5a3 3 0 0 1 3 3 3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3m0-3A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10z"
+            />
+          </svg>`,
+          },
+          {
+            text: 'Configuration',
+            url: '/configuration',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24">  
+            <path
+                  class="fill-current"
+              d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.81 3.81 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.81 3.81 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4z" />
+          </svg>`,
+          }
+        ],
+        wrapMenu: false,
+      };
+    },
+    mounted(){
+      
+    }, 
+  };
+  </script>
+  
+<style > 
+  a span, path { 
+    font-weight: 500; 
+    color:#D2D2E8; 
+    fill: #D2D2E8; 
+  } 
+  a.router-link-exact-active {
+    background:#4F46E5; 
+    border-radius: 20px;
+  }   
+  #nav{
+    background: #282A42;
+  }
 </style>

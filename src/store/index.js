@@ -28,13 +28,11 @@ export default createStore({
           },
       ],
     },
-    table:false,
-    date_g:[],
-    params:null,
-    liste_table:[
-      ['','','','','','','',''],
-      ['','','','','','','','','','']
-    ]
+    years:[
+      2016,2017,2018,2019,2020,2021,2022
+    ],
+    indexOnglet:0,
+    indexOngletOfConfig:0,
   },
   getters: {
   },

@@ -1,35 +1,51 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ClientView from '../views/ClientsView.vue'
-import ReservatoinView from '../views/ReservationView.vue'
-import WelcommeView from '../views/WelcommeView.vue'
+import Accueil from '../views/accueilView.vue'
+import Caisse from '../views/caisseView.vue'
+import Patients from '../views/patientsView'
+import Stocks from '../views/stocksView.vue'
+import Configuration from '../views/ConfigurationView.vue'
+import Utilisateur from '../views/utilisateurView.vue'
 
 const routes = [        
   {
     path: '/',
-    name: 'welcome',
-    component: WelcommeView
+    name: 'accueil',
+    component: Accueil
 
   },       
   {
-    path: '/home',
-    name: 'home',
-    component: HomeView
+    path: '/stocks',
+    name: 'stocks',
+    component: Stocks
 
   },  
   {
-    path: '/client',
-    name: 'client',
-    component: ClientView
+    path: '/caisse',
+    name: 'caisse',
+    component: Caisse
   },
   {
-    path: '/reservation',
-    name: 'reservation',
-    component: ReservatoinView
+    path: '/patients',
+    name: 'patients',
+    component: Patients
+  },
+  {
+    path: '/configuration',
+    name: 'configuration',
+    component: Configuration
+  },
+  {
+    path: '/utilisateur',
+    name: 'utilisateur',
+    component: Utilisateur
   },
   {
     path: '/:pathMatch(.*)*',
-    component: WelcommeView
+    component: Accueil
+  }, 
+  {
+    path: '/:pathMatch(.*)*',
+    component: Accueil
   }, 
 ]
 
