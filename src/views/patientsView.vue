@@ -3,12 +3,8 @@
     <div class=" flex justify-between items-center px-3 ">
       <!-- en haut du head bar -->
       <div class=" flex uppercase text-sm font-bold text-stone-400 " id="petite_menu">
-          <span @click="setPindexOnglet(0)" :class="this.$store.state.indexOnglet==0?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Entreprise"> Entreprise</span>
-          <span @click="setPindexOnglet(1)" :class="this.$store.state.indexOnglet==1?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Hospitalisation"> Hospitalisation</span>
-          <span @click="setPindexOnglet(2)" :class="this.$store.state.indexOnglet==2?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Individuel"> Individuel</span>
-          <span @click="setPindexOnglet(3)" :class="this.$store.state.indexOnglet==3?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Liste des patients Hospitalisés"> Hospitalisés</span>
-          <span @click="setPindexOnglet(4)" :class="this.$store.state.indexOnglet==4?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title=" Statistique d'hospitalisation">Statistique</span>
-        </div>
+          <span v-for="item,i in list_menu" :key="i" @click="setPindexOnglet(i)" :class="this.$store.state.indexOnglet==i?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" :title="item[1]" v-text="item[0]">  </span>
+         </div>
         <!-- head bar -->
         <div  class=" flex flex-row  "> 
           <div v-if="this.$store.state.indexOnglet!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
@@ -43,6 +39,12 @@ export default {
   data(){
   return {
     
+    list_menu:[
+      ['ARTICLE','Liste des articles '],
+      ['DEPATEMENT','Fiche département'],
+      ['FAMILLE','Liste Famille (Catégorie)'],
+      ['FOURNISSEUR','Liste des fournisseurs'],
+    ], 
   } 
   },
   methods:{ 

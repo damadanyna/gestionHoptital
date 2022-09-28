@@ -1,6 +1,6 @@
 <template>
   <nav class="flex flex-col h-screen"> 
-    <div :class="wrapMenu ? 'w-56  ' : 'w-12  '" class="flex flex-col h-full rounded-r-2xl my-shadow bg-white" id="nav"  >
+    <div :class="wrapMenu ? 'w-56  ' : 'w-12  '" class="flex flex-col h-full   my-shadow bg-white" id="nav"  >
       <!-- header-bar -->
       <div  class="flex w-full   justify-between " :class="wrapMenu ? '  py-4' : 'mt-4'" >  
         <div v-if="wrapMenu"  class=" flex items-center justify-center  ">
@@ -126,8 +126,5 @@
   a.router-link-exact-active {
     background:#4F46E5; 
     border-radius: 20px;
-  }   
-  #nav{
-    background: #282A42;
-  }
+  } 
 </style>

@@ -11,3 +11,9 @@ export default {
     components: { nav_bar }
 };
 </script>
+<style>
+    
+    #nav{
+    background: #282A42;
+  }
+</style>

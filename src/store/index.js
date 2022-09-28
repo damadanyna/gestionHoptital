@@ -33,6 +33,8 @@ export default createStore({
     ],
     indexOnglet:0,
     indexOngletOfConfig:0,
+    indexOngletOfStock:[0,0],
+    
   },
   getters: {
   },

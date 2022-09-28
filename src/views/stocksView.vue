@@ -1,17 +1,18 @@
 <template>
-  <div class="patientsCss flex flex-col w-full h-full pb-2 "> 
-    <div class=" flex justify-between items-center px-3 ">
-      <!-- en haut du head bar -->
-      <div class=" flex uppercase text-sm font-bold text-stone-400 " id="petite_menu">
-          <span @click="setPindexOnglet(0)" :class="this.$store.state.indexOnglet==0?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Entreprise"> Entreprise</span>
-          <span @click="setPindexOnglet(1)" :class="this.$store.state.indexOnglet==1?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Hospitalisation"> Hospitalisation</span>
-          <span @click="setPindexOnglet(2)" :class="this.$store.state.indexOnglet==2?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Fiche Individuel"> Individuel</span>
-          <span @click="setPindexOnglet(3)" :class="this.$store.state.indexOnglet==3?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title="Liste des patients Hospitalisés"> Hospitalisés</span>
-          <span @click="setPindexOnglet(4)" :class="this.$store.state.indexOnglet==4?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" title=" Statistique d'hospitalisation">Statistique</span>
+  <div class="patientsCss flex flex-col w-full h-full pb-2"> 
+        <div class="  absolute top-0 flex text-sm text-indigo-100 font-bold  py-1 rounded-br-2xl px-4 " id="nav" >
+          <span v-for="item,i in list_nav" :key="i" @click="setPindexOngletOfStock(i)" :class="this.$store.state.indexOngletOfStock[0] ==i?' bg-indigo-500 ':' border-transparent'" class=" px-3 cursor-pointer rounded-t-2xl " :title="item[1]" v-text="item[0]">  </span>
         </div>
+    <div class=" flex justify-between w-full items-center px-3 ">
+      <!-- en haut du head bar -->
+      <div class=" flex flex-col w-full pr-3">  
+        <div class="  flex mt-8 text-sm font-semibold text-stone-500 " id="petite_menu">
+          <span v-for="item,i in list_nav[this.$store.state.indexOngletOfStock[0]][2]" :key="i" @click="setindexOngletOfStockMenu(i)" :class="this.$store.state.indexOngletOfStock[1] ==i?' border-indigo-500 text-indigo-500  ':' border-transparent'" class="  border-b-2 px-3 cursor-pointer mx-1" :title="item[1]" v-text="item[0]">  </span>
+        </div>
+         </div>
         <!-- head bar -->
         <div  class=" flex flex-row  "> 
-          <div v-if="this.$store.state.indexOnglet!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
+          <div v-if="this.$store.state.indexOngletOfStock[1]!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
               <svg class=" w-9 mb-2"  viewBox="0 0 24 24"><path class=" fill-current text-stone-400" d="M19.31 18.9c.44-.69.69-1.52.69-2.4 0-2.5-2-4.5-4.5-4.5S11 14 11 16.5s2 4.5 4.5 4.5c.87 0 1.69-.25 2.38-.68L21 23.39 22.39 22l-3.08-3.1m-3.81.1a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5m-5.91.2L3  " /></svg>
               <input placeholder=" Rechercher" class=" px-3 w-full outline-none" type="text" name="" id="">
           </div>
@@ -20,34 +21,54 @@
           </router-link>
         </div>  
       </div>
-      <div class="flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
-        <entrepise v-if=" this.$store.state.indexOnglet==0"></entrepise>
-        <hospitalisation v-else-if=" this.$store.state.indexOnglet==1"></hospitalisation>
-        <hospitalise v-else-if=" this.$store.state.indexOnglet==2"></hospitalise>
-        <individuel v-else-if=" this.$store.state.indexOnglet==3"></individuel>
+      <div v-if="this.$store.state.indexOngletOfStock[0]==0" class="flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+        <articles v-if=" this.$store.state.indexOngletOfStock[1]==0"></articles>
+        <departement v-else-if=" this.$store.state.indexOngletOfStock[1]==1"></departement>
+        <famille v-else-if=" this.$store.state.indexOngletOfStock[1]==2"></famille>
+        <fournisseur v-else-if=" this.$store.state.indexOngletOfStock[1]==3"></fournisseur>
         <statistique v-else ></statistique>
       </div>
   </div>
 </template>
 
 <script>
-import entrepise from './pages/patients/entrepriseView.vue'
-import hospitalisation from './pages/patients/hospitalisationView.vue'
-import hospitalise from './pages/patients/hospitaliseView.vue'
-import individuel from './pages/patients/individuelView.vue'
-import statistique from './pages/patients/statistiqueView.vue'
+import articles from './pages/stocks/articleView.vue'
+import departement from './pages/stocks/departementView.vue'
+import famille from './pages/stocks/familleView.vue'
+import fournisseur from './pages/stocks/fournisseurView.vue' 
 
 export default {
-  components:{  entrepise,hospitalisation,hospitalise,individuel,statistique
-  },
+  components:{ articles,departement,famille,fournisseur },
   data(){
   return {
-    
+    list_nav:[
+      ['Genérale','Genérale ',  
+        [
+          ['Article','Liste des articles '],
+          ['Departement','Fiche département'],
+          ['Famille','Liste Famille (Catégorie)'],
+          ['Fournisseur','Liste des fournisseurs']
+        ]
+      ],
+      ['Mouvement des Stocks','Mouvement des stocks', 
+        [
+          ['Saisie',' Saisie des entrées / sorties'],
+          ['Montage Transformation','Montage et transformation'],
+          ['Tableau des Mouvements','Tableau des Mouvements'],
+          ['Mouvement Journaliers','Mouvement Journaliers']
+        ]
+      ],
+      ['Utilitaire','Utilitaire'], 
+    ],  
   } 
   },
   methods:{ 
-    setPindexOnglet(val){
-      this.$store.state.indexOnglet=val
+    setPindexOngletOfStock(val){
+      this.$store.state.indexOngletOfStock[0] =val 
+
+    },
+    setindexOngletOfStockMenu(val){
+      this.$store.state.indexOngletOfStock[1] =val 
     }
   }
   }
