@@ -1,14 +1,16 @@
 <template> 
   <div class="patientsCss flex flex-col w-full pb-8 ">  
     <!-- tableau -->
-    <div class=" mt-4 my-shadow rounded-lg bg-white py-2" >
-      <div class=" px-4 py-4">
-        <div class=" text-stone-700 text-2xl font-bold flex">
-          <span class=" text-stone-300 ">Gestion de Stock</span> 
-          <span class="   text-stone-700 "> ></span > 
-          <span class="   text-stone-700  " @click="optionPatients=true" v-text="urlPatients">  </span >
+      <div class=" mt-4 my-shadow rounded-lg bg-white  " >
+        <div class=" px-4">
+          <div class=" text-stone-700 text-2xl pb-7 font-bold flex justify-end">
+            <div class=" bg-indigo-500 px-4 rounded-b-2xl">
+              <span class=" text-stone-300 ">Gestion de Stock>Genérale</span> 
+              <span class="   text-white "> ></span > 
+              <span class="   text-white  " @click="optionPatients=true" v-text="urlPatients">  </span > 
+            </div>
+          </div>
         </div>
-      </div>
       <table class=" w-full  rounded-lg "> 
         <tr class=" bg-stone-100   border-stone-200">
           <th class="  px-5 py-3 text-start" v-for="item,i in table_col" :key="i" :class="i==2?'w-32':i==0?'w-52':''" v-text="i==2?'':item"></th>

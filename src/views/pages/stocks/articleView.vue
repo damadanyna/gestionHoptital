@@ -4,24 +4,24 @@
       <div class=" mt-4 my-shadow rounded-lg bg-white py-2" >
         <div class=" px-4 py-4 flex justify-between items-center">
           <div class=" text-stone-700 text-2xl font-bold flex">
-            <span class=" text-stone-300 ">Gestion de Stock</span> 
-            <span class="   text-stone-700 "> ></span > 
-            <span class="   text-stone-700  " @click="optionPatients=true" v-text="urlPatients">  </span >
+            <span class=" text-stone-300 ">Gestion de Stock>Genérale</span> 
+            <span class=" text-stone-700 "> ></span > 
+            <span class=" text-stone-700 " @click="optionPatients=true" v-text="urlPatients"> </span >
           </div>
           <div class=" flex "> 
-            <div class=" text-stone-700 text-xl mr-2 flex   px-3 rounded-2xl  border border-stone-300"> 
-              <input type="text" placeholder="Séléction" class="  text-xloutline-none">
+            <div class=" text-stone-700 text-xl mr-2 flex px-3 rounded-2xl border border-stone-300"> 
+              <input type="text" placeholder="Séléction" class=" outline-none text-xl  ">
               <svg class=" w-6" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5H7z" /></svg>
             </div> 
-            <div class=" text-stone-700 text-xl  flex   px-3 rounded-2xl  border border-stone-300"> 
-              <input type="text" placeholder="Stock" class="  text-xloutline-none">
+            <div class=" text-stone-700 text-xl flex px-3 rounded-2xl border border-stone-300"> 
+              <input type="text" placeholder="Stock" class=" text-xl outline-none " >
               <svg class=" w-6" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5H7z" /></svg>
             </div>
           </div>
         </div>
         <table class=" w-full  rounded-lg "> 
-          <tr class=" bg-stone-100   border-stone-200">
-            <th class="  px-5 py-3 text-start" v-for="item,i in table_col" :key="i" :class="i==7?' w-32':''" v-text="i==7?'':item"></th>
+          <tr class=" bg-stone-100 border-stone-200">
+            <th class=" px-5 py-3 text-start" v-for="item,i in table_col" :key="i" :class="i==7?' w-32':''" v-text="i==7?'':item"></th>
           </tr>
           <tbody> 
             <tr v-for="j in 10" :key="j" class=" group border-t border-stone-200  ">
@@ -129,15 +129,38 @@
     export default {
     data(){
       return {
-        indexPage:1, 
-        formulaire:false, 
-        urlPatients:'Article',   
+        indexPage:1,
+        formulaire:false,
+        urlPatients:'Article',
         table_col:['Code Article','Désignation','Mvt','Préférence','Stock','Urée','Prix de Vente','']
       }
     },
-    methods:{ 
+    methods:{
     }
     }
+    /*
+    elidiot trosan levaly
+    ljo za maka anao
+    Gig mj ft mad max
+    kapepeky tia mofo
+    rojovola mpamarky
+    rojovola zakaty
+    soamangna managera
+    soamangna mapijaly tsy fanagna vola
+    khaleba sitrany tsy manambaly
+    mamada RN9
+    tambatambaziko
+    samota soman ny menabe
+    moros zazan'i menabe kilalaky
+    betofy mikarama
+    nahita ny tiako
+    rebona tananao tsapiky
+    betofy agny anao zay cherie
+    rebona motombe
+    tsito tapiky
+    mamehe
+
+    */
     </script>
     
     <style>

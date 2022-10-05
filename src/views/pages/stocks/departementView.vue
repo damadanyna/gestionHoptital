@@ -1,12 +1,14 @@
 <template> 
     <div class="patientsCss flex flex-col w-full pb-8 ">  
       <!-- tableau -->
-      <div class=" mt-4 my-shadow rounded-lg bg-white py-2" >
-        <div class=" px-4 py-4">
-          <div class=" text-stone-700 text-2xl font-bold flex">
-            <span class=" text-stone-300 ">Gestion de Stock</span> 
-            <span class="   text-stone-700 "> ></span > 
-            <span class="   text-stone-700  " @click="optionPatients=true" v-text="urlPatients">  </span >
+      <div class=" mt-4 my-shadow rounded-lg bg-white  " >
+        <div class=" px-4">
+          <div class=" text-stone-700 text-2xl pb-7 font-bold flex justify-end">
+            <div class=" bg-indigo-500 px-4 rounded-b-2xl">
+              <span class=" text-stone-300 ">Gestion de Stock>Genérale</span> 
+              <span class="   text-white "> ></span > 
+              <span class="   text-white  " @click="optionPatients=true" v-text="urlPatients">  </span > 
+            </div>
           </div>
         </div>
         <table class=" w-full  rounded-lg "> 
@@ -59,7 +61,7 @@
       <div v-if="formulaire==true"  class="  justify-center items-center absolute blures w-full flex h-screen top-0 left-0"> 
       <div class=" flex flex-col py-5 bg-white my-shadow rounded-xl"> 
           <div class=" w-full flex text-center">
-            <span  class=" text-4xl text-gray-500 w-full text-center pb-5">Insertion des Familles </span>
+            <span  class=" text-4xl text-gray-500 w-full text-center pb-5">Insertion du Dépatement </span>
             <div class=" ">
               <div @click="formulaire=false" class=" -mt-2 group absolute -ml-9  transform cursor-pointer duration-200">
                 <svg class=" group-hover:scale-150 duration-150 w-6" viewBox="0 0 24 24"><path class=" fill-current group-hover:text-red-500" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
@@ -73,7 +75,7 @@
                 <input type="text" placeholder="12456..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
               </div>
               <div class=" flex flex-col mb-3">
-                <span class=" text-stone-500 text-sm">Désignation</span>
+                <span class=" text-stone-500 text-sm">Nom du Dépatement</span>
                 <input type="text" placeholder="Anestesie ..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
               </div> 
             </div>  

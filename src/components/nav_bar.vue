@@ -1,5 +1,6 @@
 <template>
   <nav class="flex flex-col h-screen"> 
+    
     <div :class="wrapMenu ? 'w-56  ' : 'w-12  '" class="flex flex-col h-full   my-shadow bg-white" id="nav"  >
       <!-- header-bar -->
       <div  class="flex w-full   justify-between " :class="wrapMenu ? '  py-4' : 'mt-4'" >  
@@ -25,14 +26,22 @@
       <!-- title -->
       <div v-if="wrapMenu" class=" pt-14" ><span class=" delay-100 text-sm text-stone-400 text-center px-6" >APPS & PAGES</span></div>
       <!-- liste -->
-      <div :class="wrapMenu ? '  px-6' : ''" class="flex flex-col mt-7">
+      <div :class="wrapMenu ? '  px-6' : ''" class="flex flex-col mt-7  ">
         <div class=" flex w-full"  v-for="liste,i in listItem" :key="i" >
-          <router-link :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-3 py-1  px-3'" :to="liste.url" class=" w-full " >
+          <router-link   v-if="i==1 || i==4 || i==5 "  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-3 py-1  px-3'" :to="liste.url" class=" w-full "
+        >
             <div class="flex flex-row">
               <div :title="liste.text"  v-html="liste.ico"></div>
               <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
             </div>
           </router-link>
+          <div   @click=" this.$store.state.data.user.logged=false "  v-if="  i==6"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-3 py-1  px-3'" :to="liste.url" class=" w-full "
+        >
+            <div class="flex flex-row cursor-pointer" id="sortie_cont">
+              <div :title="liste.text"  v-html="liste.ico"></div>
+              <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
+            </div>
+          </div>
         </div>
       </div>
     </div> 
@@ -106,6 +115,16 @@
                   class="fill-current"
               d="m21.71 20.29-1.42 1.42a1 1 0 0 1-1.41 0L7 9.85A3.81 3.81 0 0 1 6 10a4 4 0 0 1-3.78-5.3l2.54 2.54.53-.53 1.42-1.42.53-.53L4.7 2.22A4 4 0 0 1 10 6a3.81 3.81 0 0 1-.15 1l11.86 11.88a1 1 0 0 1 0 1.41M2.29 18.88a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l5.47-5.46-2.83-2.83M20 2l-4 2v2l-2.17 2.17 2 2L18 8h2l2-4z" />
           </svg>`,
+          },
+          {
+            text: 'Sortir',
+            url: '/patients', 
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 cursor-pointer" viewBox="0 0 24 24">  
+            <path
+                  class="fill-current"
+              d="M11.92 19.92 4 12l7.92-7.92 1.41 1.42-5.5 5.5H22v2H7.83l5.51 5.5-1.42 1.42M4 12V2H2v20h2V12z" />
+          </svg>`, 
           }
         ],
         wrapMenu: false,
@@ -117,8 +136,8 @@
   };
   </script>
   
-<style > 
-  a span, path { 
+<style> 
+  a span, path,#sortie_cont { 
     font-weight: 500; 
     color:#D2D2E8; 
     fill: #D2D2E8; 

@@ -2,19 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
+#app{
+    -webkit-user-select: none;
+}
+.stop-window-drag{ 
+    -webkit-app-region:no-drag;
+}
+.start-window-drag{
+    -webkit-app-region:drag;
+  }
+  
 .blures {
     transition: 0.4ms;
     backdrop-filter: blur(3px);
     background: rgba(109, 109, 109, 0.247);
-  }
+}
+.blures_dark {
+    transition: 0.4ms;
+    backdrop-filter: blur(3px);
+    background: rgba(41, 41, 41, 0.247);
+}
   .opacites{
     background: rgba(177, 177, 177, 0);
   }
-  
-*{
-    transition: 330ms;
-}
+
 
 .black-t{
     color:#25282B ;

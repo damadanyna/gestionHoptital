@@ -1,13 +1,27 @@
 <template>
-  <div class="patientsCss flex flex-col w-full h-full py-3"> 
-    <div class=" flex justify-between items-center px-3 ">
-      <!-- en haut du head bar -->
-      <div class=" flex uppercase text-sm font-bold text-stone-400 " id="petite_menu">
-          <span v-for="item,i in list_menu" :key="i" @click="setPindexOnglet(i)" :class="this.$store.state.indexOnglet==i?'border-blue-600 text-blue-600':' border-transparent'" class="cursor-pointer border-b-2  mx-3" :title="item[1]" v-text="item[0]">  </span>
-         </div>
+  <div class="patients flex flex-col w-full h-full pb-2 "> 
+        <div class=" top-0 absolute flex flex-row w-full start-window-drag " > 
+              <div class="absolute flex text-sm z-30 text-indigo-100 py-1 rounded-br-2xl px-4 stop-window-drag"  id="nav" >      
+                <span v-for="item,i in list_nav" :key="i" @click="setPindexOngletOfPatient(i)" :class="this.$store.state.indexOngletOfPatient[0] ==i?' bg-indigo-500 ':' border-transparent'" class=" px-3 cursor-pointer rounded-t-2xl " :title="item[1]" v-text="item[0]">  </span>
+               </div>   
+           <div class="flex flex-col  w-full z-0 h-7"> 
+           </div>       
+            <div class="flex fixed -right-2  px-3 flex-row w-36 justify-center z-50 h-7 stop-window-drag" >  
+              <svg  class=" w-7 transform hover:scale-150 cursor-pointer mr-5 -mt-2" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path  class=" fill-current text-stone-600" d="M10 25.5v-3h28v3Z"/></svg>
+              <svg class=" w-4 transform hover:scale-150 cursor-pointer mr-5" viewBox="0 0 24 24"><path class=" fill-current text-stone-600" d="M19 19V5H5v14h14m0-16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-8  " /></svg>
+              <svg class=" w-5 transform hover:scale-150 cursor-pointer group "  viewBox="0 0 24 24"><path class=" group-hover:text-red-600 fill-current text-stone-600" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
+            </div> 
+        </div>
+    <div class=" flex justify-between w-full items-center px-3 mt-5 ">
+      <!-- en haut du head bar --> 
+        <div class=" flex flex-col w-full pr-3">  
+          <div class="  flex mt-3 text-sm font-semibold text-stone-500 " id="petite_menu">
+            <span v-for="item,i in list_nav[this.$store.state.indexOngletOfPatient[0]][2]" :key="i" @click="setindexOngletOfPatientMenu(i)" :class="this.$store.state.indexOngletOfPatient[1] ==i?' border-indigo-500 text-indigo-500  ':' border-transparent'" class="  border-b-2 px-3 cursor-pointer mx-1" :title="item[1]" v-text="item[0]">  </span>
+          </div>
+        </div>
         <!-- head bar -->
         <div  class=" flex flex-row  "> 
-          <div v-if="this.$store.state.indexOnglet!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
+          <div v-if="this.$store.state.indexOngletOfPatient[1]!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
               <svg class=" w-9 mb-2"  viewBox="0 0 24 24"><path class=" fill-current text-stone-400" d="M19.31 18.9c.44-.69.69-1.52.69-2.4 0-2.5-2-4.5-4.5-4.5S11 14 11 16.5s2 4.5 4.5 4.5c.87 0 1.69-.25 2.38-.68L21 23.39 22.39 22l-3.08-3.1m-3.81.1a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5m-5.91.2L3  " /></svg>
               <input placeholder=" Rechercher" class=" px-3 w-full outline-none" type="text" name="" id="">
           </div>
@@ -16,44 +30,55 @@
           </router-link>
         </div>  
       </div>
-      <div class="flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
-        <entrepise v-if=" this.$store.state.indexOnglet==0"></entrepise>
-        <hospitalisation v-else-if=" this.$store.state.indexOnglet==1"></hospitalisation>
-        <hospitalise v-else-if=" this.$store.state.indexOnglet==2"></hospitalise>
-        <individuel v-else-if=" this.$store.state.indexOnglet==3"></individuel>
-        <statistique v-else ></statistique>
+      <div v-if="this.$store.state.indexOngletOfPatient[0]==0" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+        <hospitalisationViewVue v-if=" this.$store.state.indexOngletOfPatient[1]==2"></hospitalisationViewVue>
+        <entrepriseViewVue v-else-if=" this.$store.state.indexOngletOfPatient[1]==0"></entrepriseViewVue> 
+      </div>
+      <div v-if="this.$store.state.indexOngletOfPatient[0]==1" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+        <hospitaliseViewVue></hospitaliseViewVue> 
+      </div>
+      <div v-if="this.$store.state.indexOngletOfPatient[0]==2" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+        <statistiqueViewVue></statistiqueViewVue> 
       </div>
   </div>
 </template>
 
 <script>
-import entrepise from './pages/patients/entrepriseView.vue'
-import hospitalisation from './pages/patients/hospitalisationView.vue'
-import hospitalise from './pages/patients/hospitaliseView.vue'
-import individuel from './pages/patients/individuelView.vue'
-import statistique from './pages/patients/statistiqueView.vue'
+  import statistiqueViewVue from './pages/patients/statistiqueView.vue'
+  import hospitalisationViewVue from './pages/patients/hospitalisationView.vue'
+  import hospitaliseViewVue from './pages/patients/hospitaliseView.vue' 
+  import entrepriseViewVue from './pages/patients/entrepriseView.vue'
 
 export default {
-  components:{  entrepise,hospitalisation,hospitalise,individuel,statistique
-  },
+  components:{ 
+    statistiqueViewVue,
+    hospitalisationViewVue,
+    entrepriseViewVue, 
+    hospitaliseViewVue},
   data(){
   return {
-    
-    list_menu:[
-      ['ARTICLE','Liste des articles '],
-      ['DEPATEMENT','Fiche département'],
-      ['FAMILLE','Liste Famille (Catégorie)'],
-      ['FOURNISSEUR','Liste des fournisseurs'],
-    ], 
+    list_nav:[
+      ['Fiche','fiche entrepries', 
+        [
+          ['Entreprise','Fiche Entreprise'], 
+          ['Hospitalisation','Fiche Hospitalisation']
+        ]
+      ],
+      ['Liste des patients hospitalisés','Liste des patients hospitalisés'],
+      ['Statistique hospitalisation','Fiche hospitalisation'],
+    ],  
   } 
   },
   methods:{ 
-    setPindexOnglet(val){
-      this.$store.state.indexOnglet=val
+    setPindexOngletOfPatient(val){
+      this.$store.state.indexOngletOfPatient[0] =val  
+    },
+    setindexOngletOfPatientMenu(val){
+      this.$store.state.indexOngletOfPatient[1] =val 
     }
   }
   }
 </script>
 
 <style> 
-</style>
+</style>  

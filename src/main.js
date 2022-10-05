@@ -4,7 +4,12 @@ import router from './router'
 import './assets/tailwind.css'
 import store from './store'
 
+import axios from 'axios'
+
+window.axios = axios
+
+window.axios.defaults.baseURL = '//localhost:4044/api'; 
 createApp(App)
-    .use(store)
+    .use(store) 
     .use(router)
     .mount('#app')

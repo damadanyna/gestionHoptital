@@ -1,6 +1,15 @@
 <template>
-  <div class="patientsCss flex flex-col w-full h-full py-3"> 
-    <div class=" flex justify-between items-center px-3 ">
+  <div class="patients flex flex-col w-full h-full pb-2 "> 
+        <div class=" top-0 absolute flex flex-row w-full start-window-drag " >   
+           <div class="flex flex-col  w-full z-0 h-7"> 
+           </div>       
+            <div class="flex fixed -right-2 px-3 flex-row w-36 justify-center z-50 h-7 stop-window-drag" >  
+              <svg  class=" w-7 transform hover:scale-150 cursor-pointer mr-5 -mt-2" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path  class=" fill-current text-stone-600" d="M10 25.5v-3h28v3Z"/></svg>
+              <svg class=" w-4 transform hover:scale-150 cursor-pointer mr-5" viewBox="0 0 24 24"><path class=" fill-current text-stone-600" d="M19 19V5H5v14h14m0-16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-8  " /></svg>
+              <svg class=" w-5 transform hover:scale-150 cursor-pointer group "  viewBox="0 0 24 24"><path class=" group-hover:text-red-600 fill-current text-stone-600" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
+            </div> 
+        </div>
+    <div class=" flex justify-between w-full items-center px-3 mt-5 ">
       <!-- en haut du head bar -->
       <div class=" flex uppercase text-sm font-bold text-stone-400 " id="petite_menu"> </div>
         <!-- head bar -->

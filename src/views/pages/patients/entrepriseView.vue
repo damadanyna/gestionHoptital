@@ -1,6 +1,5 @@
 <template>
     <div>
-      Entreprise
     </div>
   </template>
   
@@ -10,6 +9,6 @@
   }
   </script>
   
-  <style>
+  <style> 
   
   </style>

@@ -4,19 +4,22 @@ import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
-
+ 
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
-])
-
+]) 
+// 
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 1028,
+    width: 1200,
     height: 600,
+    minHeight:700,
+    minWidth:1080,
     autoHideMenuBar: true,
+    frame: false,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -38,6 +41,7 @@ async function createWindow() {
 }
 
 // Quit when all windows are closed.
+//mteny angal la zany??
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q

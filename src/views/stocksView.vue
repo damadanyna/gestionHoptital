@@ -4,12 +4,12 @@
           <span v-for="item,i in list_nav" :key="i" @click="setPindexOngletOfStock(i)" :class="this.$store.state.indexOngletOfStock[0] ==i?' bg-indigo-500 ':' border-transparent'" class=" px-3 cursor-pointer rounded-t-2xl " :title="item[1]" v-text="item[0]">  </span>
         </div>
     <div class=" flex justify-between w-full items-center px-3 ">
-      <!-- en haut du head bar -->
-      <div class=" flex flex-col w-full pr-3">  
-        <div class="  flex mt-8 text-sm font-semibold text-stone-500 " id="petite_menu">
-          <span v-for="item,i in list_nav[this.$store.state.indexOngletOfStock[0]][2]" :key="i" @click="setindexOngletOfStockMenu(i)" :class="this.$store.state.indexOngletOfStock[1] ==i?' border-indigo-500 text-indigo-500  ':' border-transparent'" class="  border-b-2 px-3 cursor-pointer mx-1" :title="item[1]" v-text="item[0]">  </span>
+        <!-- en haut du head bar -->
+        <div class=" flex flex-col w-full pr-3">  
+          <div class="  flex mt-8 text-sm font-semibold text-stone-500 " id="petite_menu">
+            <span v-for="item,i in list_nav[this.$store.state.indexOngletOfStock[0]][2]" :key="i" @click="setindexOngletOfStockMenu(i)" :class="this.$store.state.indexOngletOfStock[1] ==i?' border-indigo-500 text-indigo-500  ':' border-transparent'" class="  border-b-2 px-3 cursor-pointer mx-1" :title="item[1]" v-text="item[0]">  </span>
+          </div>
         </div>
-         </div>
         <!-- head bar -->
         <div  class=" flex flex-row  "> 
           <div v-if="this.$store.state.indexOngletOfStock[1]!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
