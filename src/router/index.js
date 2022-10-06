@@ -3,7 +3,7 @@ import Accueil from '../views/accueilView.vue'
 import Caisse from '../views/caisseView.vue'
 import Patients from '../views/patientsView'
 import Stocks from '../views/stocksView.vue'
-import Configuration from '../views/ConfigurationView.vue'
+import Configuration from '../views/configurationView.vue'
 import Utilisateur from '../views/utilisateurView.vue'
 import welcom from '../views/welcomePage.vue'
 

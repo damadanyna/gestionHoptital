@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row h-full bg-slate-100 start-window-drag ">
+  <div :class="this.$store.state.darkMode==true?' bg-stone-100':' bg-stone-600'" class=" flex flex-row h-full  start-window-drag ">
          
     <welvomeView v-if="!this.$store.state.data.user.logged " class=" w-full"></welvomeView>
     <div v-else class="stop-window-drag w-full flex flex-row h-full">
@@ -14,7 +14,7 @@
 
 import nav_bar from './components/nav_bar.vue';
 import dialogueVue from './components/dialogueView.vue'
-import yesNoDialogueVue from './components/yesOrNo.vue'
+import yesNoDialogueVue from './components/yesOrNoView.vue'
 import welvomeView from './views/welcomePage.vue'
 export default {
     layout: "blog",
@@ -24,28 +24,15 @@ export default {
       }
     },
     methods:{
-      async recupData(){  
-      try {
-         await window.axios
-        .get('/patients')
-        .then(()=>{
-          console.log('maty')
-           })
-        .catch(e=>console.log('erreur le ka: '+e)) 
-      } catch (e) {
-        console.log(e)
-      } 
     },
-    },
-    mounted(){
-      this.recupData();
+    mounted(){ 
    
     }
     /* components: { nav_bar,dialogueVue,yesNoDialogueVue } */
 };
 </script>
 <style> 
-  #nav,.nav-bg{
+  #nav,.nav-bg,.nav{
     background: #282A42;
   } 
   *{

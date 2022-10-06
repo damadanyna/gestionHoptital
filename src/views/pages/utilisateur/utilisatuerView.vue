@@ -1,221 +1,200 @@
 <template> 
-  <div class="patientsCss flex flex-col w-full pb-8 ">  
+  <div class="patientsCss flex flex-col w-full   ">   
+    
     <!-- tableau -->
-    <div class=" mt-11 my-shadow rounded-lg bg-white py-2" >
-      <div class=" px-4 py-4">
-        <div class=" text-stone-700 text-2xl font-bold flex">
-          <span class=" text-stone-700 ">Gestion des Utilisateurs</span>  
+      <div :class="this.$store.state.darkMode==true?' bg-white  my-shadow ':' bg-stone-700'" class=" mt-4 rounded-lg   " >
+        <div class=" px-4">
+          <div class=" text-stone-700 text-2xl pb-7 font-bold flex justify-end">
+            <div class=" bg-indigo-500 px-4 rounded-b-2xl"> 
+              <span class="text-white" @click="optionPatients=true" v-text="urlPatients">  </span > 
+            </div>
+          </div>
         </div>
-      </div>
       <table class=" w-full  rounded-lg "> 
-        <tr class=" bg-stone-100   border-stone-200">
-          <th class="  px-5 py-3 text-start" v-for="i in 5" :key="i" :class="i==5?' w-32':''" v-text="i==5?'':'title ' +i"></th>
+        <tr  :class="this.$store.state.darkMode==true?' bg-stone-100 ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200">
+          <th class=" px-5 py-3 text-start cursor-pointer " @click="shortOrder(item)"  v-for="item,i in table_col" :key="i" 
+          :class="i==0?' w-20':i==2?' w-20':i==3?' w-32':i==4?' w-28':i==5?' w-20':i==6?' w-32':i==7?' w-32':i==8?' w-32':''"  v-text="i==8?'':item"></th>
         </tr>
         <tbody> 
-          <tr v-for="j in 10" :key="j" class=" group border-t border-stone-200  ">
-            <td class=" px-5 bg-white py-1 text-stone-600"  v-for="i in 4" :key="i">val{{i +' de' +j}}</td>
-            <td class=" px-5 bg-white py-1 text-stone-600"   >
+          <tr v-for="j in 13" :key="j" :class="this.$store.state.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-stone-700 text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b ">
+            <td  :class="this.$store.state.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 "  v-for="i in 8" :key="i">val{{ j}}</td>
+            <td   :class="this.$store.state.darkMode==true?' bg-white':' bg-stone-700 text-stone-200'" class=" px-5  py-1  "   >
               <div class=" group-hover:flex  flex-row hidden">
-                <div class=" transform hover:scale-125 pr-1 mr-4 cursor-pointer"  :title="'Supprimer de' +j"> 
+                <div @click="this.$store.state.messageYesNoDialogue.shown=true" class=" transform hover:scale-125 pr-1 mr-4 cursor-pointer"  :title="'Supprimer de' +j"> 
                   <svg class="w-5" viewBox="0 0 24 24"><path class=" fill-current text-red-600" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z" /></svg>
                 </div>
                 <div  class=" transform hover:scale-125 pr-1 ml-4 cursor-pointer"  :title="'Editer' +j">
-                  <svg class=" w-5" viewBox="0 0 24 24"><path class="fill-current text-indigo-700" d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1z" /></svg>
+                  <svg class=" w-5" viewBox="0 0 24 24"><path :class="this.$store.state.darkMode==true?' text-indigo-700 ':'  text-indigo-400'" class="fill-current" d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1z" /></svg>
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table> 
-      <div class=" px-4 py-1 justify-between flex border-t border-stone-300 pt-3"> 
-        <div class=" flex flex-col "> 
+      <div class=" px-4 py-9 justify-between flex border-t border-stone-300 pt-3"> 
+        <div class=" flex flex-col ">
+          <div class=" flex flex-row">
+            <div v-for="i in 4" :key="i" @click="indexPage=i" :class="i==indexPage?' border-indigo-700 bg-indigo-700 ':' border-stone-800'" class=" transform hover:scale-125  font-bold rounded-lg cursor-pointer border px-3 mx-1">
+              <span :class="i==indexPage?' text-white':'text-stone-600'" class=" " v-text="i"></span>
+            </div>
+            <span>...</span>
+            <div   @click="indexPage=i"  class="border-stone-400 font-bold rounded-lg border px-3 mx-1  transform hover:scale-125 cursor-pointer"> 
+                <svg   v-on:click="wrapMenu = true" viewBox="0 0 24 24" class="w-6" >
+                  <path  class="fill-current text-stone-600"  d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z" />
+                </svg> 
+            </div>
+          </div>
         </div> 
-        <div class=" bg-stone-400 flex flex-row px-3 py-2 rounded-2xl">
-          <div  @click="formulaire=true" class=" group flex flex-col cursor-pointer" title="Ajouter une nouvelle patients ">
+        <div :class="this.$store.state.darkMode==true?'bg-stone-400 ':' bg-indigo-700 my-shadow'" class=" absolute bottom-6 right-5 flex flex-row px-4 py-3 rounded-full">
+
+          <div  @click="this.$store.state.formulaire=true" class=" group flex flex-col cursor-pointer" title="Ajouter une nouvelle patients ">
             <div class=" group-hover:scale-125 flex flex-row justify-center">
               <div class="flex flex-row rounded-full border border-white">
-                <svg class=" w-5" viewBox="0 0 24 24"><path  class=" fill-current text-white hover:text-blue-400"  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
+                <svg class=" w-7" viewBox="0 0 24 24"><path  class=" fill-current text-white hover:text-blue-400"  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
               </div>
             </div>
-            <span class=" font-medium text-white hover:text-stone-900">Ajouter</span>
+            <span class=" font-medium text-xs text-white hover:text-stone-900">Ajouter</span>
           </div>
-          <span class="   bg-stone-400 mx-3" style="width:1px"></span>
-          <div  @click="recapitulatif=true"  class=" group flex flex-col cursor-pointer" title="Ajouter une nouvelle patients ">
-            <div class=" group-hover:scale-125 flex flex-row justify-center">
-              <div class="flex flex-row rounded-full border border-white">
-                <svg class=" w-5" viewBox="0 0 24 24"><path class=" fill-current text-white  " d="M18 6v11h4V6M2 17h4V6H2m5 13h10V4H7v15z" /></svg>
-              </div>
-            </div>
-            <span class=" font-medium text-white hover:text-stone-900">Récap</span>
-          </div>
-          <span class="   bg-stone-400 mx-3" style="width:1px"></span>
-          <div @click="dateSelector=true" class=" group flex flex-col cursor-pointer" title="Séléctionner l'année">
-            <div class=" group-hover:scale-125 flex flex-row justify-center">
-              <div class="flex flex-col ">
-                <div class="flex flex-row justify-between"> 
-                  <span v-for="i in 5" :key="i" class=" bg-white" style=" height:2px;width:2px" ></span>
-                </div>
-                <div class="flex flex-row px-1 border-t-4 rounded-b-sm border border-white">
-                  <span class=" text-xs font-bold text-stone-300">22</span>
-                </div> 
-              </div>
-            </div>
-            <span  class=" font-medium text-white hover:text-stone-900">Année</span>
-          </div>
+           
         </div>
       </div>
-    </div>
-    <!-- patient's option -->
-    <div v-if="optionPatients==true" @click="optionPatients=false" class="absolute blures w-full flex h-screen top-0 left-0"> 
-    <div class=" w-full h-full flex justify-center items-center  "> 
-        <div @click="setUrlPatients('Hospitalisé')"  class="flex items-center justify-center text-center"> 
-          <span class=" px-4 mr-3 bg-white rounded-lg my-shadow py-1 font-semibold transform cursor-pointer ">
-            <svg class=" w-24" viewBox="0 0 24 24"><path class="fill-current text-stone-600" d="M16.5 12A2.5 2.5 0 0 0 19 9.5 2.5 2.5 0 0 0 16.5 7 2.5 2.5 0 0 0 14 9.5a2.5 2.5 0 0 0 2.5 2.5M9 11a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m7.5 3c-1.83 0-5.5.92-5.5 2.75V19h11v-2.25c0-1.83-3.67-2.75-5.5-2.75M9 13c-2.33 0-7 1.17-7 3.5V19h7v-2.25c0-.85.33-2.34 2.37-3.47C10.5 13.1 9.66 13 9 13z" /></svg>
-            Hospitalisé
-          </span> 
-        </div> 
-        <div  @click="setUrlPatients('Patients')"  class="flex items-center justify-center text-center">
-          <span class=" px-4 ml-3 bg-white rounded-lg my-shadow py-1 font-semibold transform cursor-pointer "> 
-            <svg class=" w-24" viewBox="0 0 24 24"> 
-              <path class="fill-current text-stone-600" d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.536 5.536 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13v-1.75M0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20H0m24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9V20z" />  
-            </svg>
-            Patients
-          </span> 
-        </div>
     </div> 
-    </div>
-    <!-- formulaire Popup --> 
-    <div v-if="formulaire==true"  class="  justify-center items-center absolute blures w-full flex h-screen top-0 left-0"> 
-    <div class=" flex flex-col py-5 bg-white my-shadow rounded-xl"> 
-        <div class=" w-full flex text-center">
-          <span  class=" text-4xl text-gray-500 w-full text-center pb-5">Insertion des patients </span>
-          <div class=" ">
-            <div @click="formulaire=false" class=" group absolute -ml-9  transform cursor-pointer duration-200">
-              <svg class=" group-hover:scale-150 duration-150 w-6" viewBox="0 0 24 24"><path class=" fill-current group-hover:text-red-500" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
-            </div>
-          </div>
-        </div>
-        <div class="flex-row flex px-12 py-3">
-          <div class=" flex flex-col px-7">
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">N° Mouvement</span>
-              <input type="text" placeholder="12456..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Nom et Prénom</span>
-              <input type="text" placeholder="Rakoto..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Date et Heure d'encaissement</span>
-              <div class=" flex flex-row"> 
-                <input type="date" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-36">
-                <input type="time" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-24 ml-3">
-              </div>
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Méthode d'encaissement</span>
-              <input type="text" placeholder="Prise en charge" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-          </div> 
-          <div class=" flex flex-col px-7">
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Tarif</span>
-              <input type="number" placeholder="Normal" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Montant Total</span>
-              <input type="number" placeholder="00.000 MGA" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Matricule du Patient</span>
-              <input type="number" placeholder="12456..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-            <div class=" flex flex-col mb-3">
-              <span class=" text-stone-500 text-sm">Département</span>
-              <input type="text" placeholder="Caissier..." class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
-            </div>
-          </div>
-        </div>
-        <div class=" w-full flex flex-center px-20">
-          <button class=" bg-stone-400 w-full py-2 rounded-xl text-white font-semibold">Enregistrer</button>
-        </div>
-    </div> 
-    </div>
-    <!-- tableau de recapitulatif --> 
-    <div v-if="recapitulatif==true" @click="recapitulatif=false"  class="  justify-center items-center absolute blures w-full flex h-screen top-0 left-0"> 
-    <div class=" flex flex-col py-5 bg-white my-shadow rounded-xl">     
-      <table class=" w-full rounded-lg "> 
-        <tr class=" bg-stone-100 border-stone-200">
-          <th class=" px-5 py-3 text-start" >RECAPITULATIF</th>
-          <th class=" px-5 py-3 text-start" >AVANCES PERCUES</th>
-        </tr>
-        <tr class=" bg-stone-100 border-stone-200">
-          <th class=" px-5 py-3 text-start" >Designation des actes</th>
-          <th class=" px-5 py-3 text-start" >Montant</th>
-        </tr>
-        <tbody> 
-          <tr v-for="item,j in arrayRecapitulatif" :key="j" class=" group border-t border-stone-200  ">
-            <td class=" px-5 bg-white py-1 text-stone-600"  v-for="i in 2" :key="i" v-text="i-1==1?item[i-1]+' MGA':item[i-1]"> </td> 
-          </tr>
-        </tbody>
-      </table> 
-        <div class=" w-full flex flex-center px-5">
-          <div class="  w-full py-2 bg-green-400 flex justify-center rounded-xl text-white font-semibold">
-            <span class=" text-white">Iprimer</span>
-            <svg class=" ml-4 w-6" viewBox="0 0 24 24"><path class=" fill-current text-white" d="M18 3H6v4h12m1 5a1 1 0 0 1-1-1 1 1 0 0 1 1-1 1 1 0 0 1 1 1 1 1 0 0 1-1 1m-3 7H8v-5h8m3-6H5a3 3 0 0 0-3 3v6h4v4h12v-4h4v-6a3 3 0 0 0-3-3z" /></svg>
-          </div>
-        </div>
-    </div> 
-    </div>
-    <!-- Canlendar Popup --> 
-    <div  @click="dateSelector=false" v-if="dateSelector==true"  class="  justify-center items-center absolute blures w-full flex h-screen top-0 left-0"> 
-    <div class=" flex flex-col py-5"> 
-        <div class=" w-full flex text-center ">
-          <span  class=" text-4xl text-indigo-600 w-full text-center pb-5">Séléctionner une date</span>
-          <div class=" ">
-            <div class=" group absolute -ml-9  transform cursor-pointer duration-200">
-              <svg class=" group-hover:scale-150 duration-150 w-6" viewBox="0 0 24 24"><path class=" fill-current group-hover:text-red-500" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" /></svg>
-            </div>
-          </div>
-        </div>  
-    </div> 
-    </div>
+    <!-- formulaire Popup -->  
+    <inputVue  :params="formulaire" /> 
   </div> 
 </template>
- <script>
-  export default {
+ <script> 
+ import inputVue from '@/components/inputView.vue'
+  export default { 
+    components:{ 
+      inputVue
+    },
   data(){
     return {
-      indexPage:1,
-      optionPatients:false,
-      formulaire:false,
-      recapitulatif:false,
-      urlPatients:'Patients',
-      dateSelector:false,
-      arrayRecapitulatif:[
-        [`Consultation`,3000],
-        [`Traitement Divers`,3000],
-        [`Médicaments & Fournitures`,3000],
-        [`Analyse & Labo`,3000],
-        [`Frais d'hospitalisation`,3000],
-        [`Petite Chirurgie`,3000],
-        [`Radiographie`,3000],
-        [`Ecographie`,3000],
-        [`Chirurgie`,3000],
-        [`Accouchement`,3000],
-        [`Sérum`,3000],
-        [`Fiche`,3000],
-        [`Certificat`,3000],
-        [`Divers`,3000],
-      ]
+      //Models anle patients
+      patients:{},
+      formulaire:{
+        dialogue:{text:'patients' }, 
+        title:{text:'Fiche individuelle',size:''},  
+        data:[
+          [
+            {
+              label:'Numéro',
+              placeholder:'Ex: 1234...',
+              model:'',
+              type:'number' 
+            },
+            {
+              label:'Nom et Prénom',
+              placeholder:'Ex: Rakoto...',
+              model:'',
+              type:'text' 
+            },
+            {
+              label:'Date de Naissance',
+              placeholder:'Ex: 1234...',
+              model:'',
+              type:'date' 
+            }, 
+            {
+              label:'Proféssion',
+              placeholder:'Ex: Mpampianatra...',
+              model:'',
+              type:'text' 
+            },
+            {
+              label:'Caisier',
+              placeholder:'Ex: Rakoto...',
+              model:'',
+              type:'text' 
+            },
+
+          ],
+          [
+            [ 
+                {
+                  label:'Sexe',
+                  placeholder:'Masculin/Fémin',
+                  model:'',
+                  type:'text' 
+                },
+                {
+                  label:'Age',
+                  placeholder:'Ex: 24',
+                  model:'',
+                  type:'number' 
+                },
+            ],
+            {
+              label:'Adresse',
+              placeholder:'Ex: Ampisikinana...',
+              model:'',
+              type:'text' 
+            },
+            {
+              label:'Dernière Viste',
+              placeholder:'Ex: 1234...',
+              model:'',
+              type:'date' 
+            },
+            {
+              label:'Date de Retour',
+              placeholder:'Ex: 1234...',
+              model:'',
+              type:'date' 
+            },
+            {
+              label:'Note',
+              placeholder:'Ex: ...',
+              model:'',
+              type:'text' 
+            }, 
+          ]
+        ]
+      }
+      ,
+      indexPage:1, 
+      urlPatients:'Liste des Utilisateur',
+      table_col:['N°','Nom et prenom','Casier','Date Naiss','Age','Sexe','Dern Visite','Retour',''], 
+      
     }
   },
   methods:{
-    setUrlPatients(val){
-      this.urlPatients=val;
-    }
+    shortOrder(val){
+      alert(val)
+    },showDialog(){
+      this.$store.state.showDialog=true
+      setTimeout(() => {
+        this.$store.state.showDialog=false
+      }, 2500);
+    }, 
+  },
+  mounted(){
   }
   }
+  /*
+  elidiot trosan levaly
+  ljo za maka anao
+  Gig mj ft mad max
+  kapepeky tia mofo
+  rojovola mpamarky
+  rojovola zakaty
+  soamangna managera
+  soamangna mapijaly tsy fanagna vola
+  khaleba sitrany tsy manambaly
+  mamada RN9
+  tambatambaziko
+  samota soman ny menabe
+  moros zazan'i menabe kilalaky
+  betofy mikarama
+  nahita ny tiako
+  rebona tananao tsapiky
+  betofy agny anao zay cherie
+  rebona motombe
+  tsito tapiky
+  mamehe
+
+  */
   </script>
   
   <style>

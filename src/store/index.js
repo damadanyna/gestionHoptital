@@ -1,9 +1,8 @@
- import axios from 'axios'
- axios.defaults.baseURL = 'localhost:4044/api';
-
+ 
  import { createStore } from 'vuex' 
 export default createStore({
   state: {
+    darkMode:false,
     data:{
       //donnés utilisateur
       user:{
@@ -11,55 +10,36 @@ export default createStore({
           pwd:'admin',
           logged:true
       },
-      clients:[
-          {
-            nom:"Rock",
-            prenom:"Lee",
-            sexe:"M",
-            addresse :"Talatamy",
-            numTel :"0349459128",
-            anne:"",
-            moi:"",
-            jours:"",
-            heure:"",
-            type_client:"",
-            nombre:"",
-            type_reservation:"",
-            etat:true,
-            num_table:null,
-          },
-      ],
-    },
-    years:[
-      2016,2017,2018,2019,2020,2021,2022
-    ],
+      clients:[  ],
+    }, 
     //charge l'affiche du login au début de l'application
     formLogin:false,
-
+    formulaireAjout:false, 
+    messageYesNoDialogue:false, 
+    
     indexOnglet:0,
     indexOngletOfConfig:0,
     indexOngletOfStock:[0,0],
     indexOngletOfPatient:[0,0],
     messageDialogue:{shown:false,success:true,message:'success'},
-    messageYesNoDialogue:{shown:false,message:'Supprimer ?'}, 
     
     
   },
   getters: {
   },
   mutations: { 
-    async recupData(){  
-      try {
-         await axios
-        .get('/patients')
-        .then(()=>{
-          console.log('maty  ')
-           })
-        .catch(e=>console.log('erreur le ka: '+e)) 
-      } catch (e) {
-        console.log(e)
-      } 
-    },
+    async getDataBy(){  
+    try {
+       await window.axios
+      .get('/patients')
+      .then(()=>{
+        console.log('maty')
+         })
+      .catch(e=>console.log('erreur le ka: '+e)) 
+    } catch (e) {
+      console.log(e)
+    } 
+  },
     async recupListPatients(){
       try {
         const d = await this.$axios.$get('/patients')
@@ -69,7 +49,7 @@ export default createStore({
         //ok
         }else{
           //Mampiseho anle boîte de dialogue erreur
-          //d.message => erreure
+          //d.message => erreure 3996038
         }
 
       } catch (e) {
