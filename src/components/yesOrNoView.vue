@@ -27,9 +27,8 @@
     props:{safe:{}},
     methods:{
       yesBtn(){ 
-        this.$store.state.messageYesNoDialogue=false
-        
-        this.$store.commit('saveData',{url:this.$store.state.statut.url,data: this.$store.state.dataSending}); 
+        this.$store.state.messageYesNoDialogue=false 
+        this.$store.commit(this.$store.state.statut.methode,{url:this.$store.state.statut.url,data: this.$store.state.dataSending}); 
       }
     } 
   }

@@ -16,7 +16,8 @@ export default createStore({
       response:{}
     }, 
     dataSending:{},
-    statut:{save:'',title:'',url:''},
+    statut:{save:'',title:'',url:'',methode:''
+    },
     //charge l'affiche du login au début de l'application
     formLogin:false,
     formulaire:false, 
@@ -31,12 +32,16 @@ export default createStore({
   getters: {
   },
   mutations: { 
-  async getDataBy(state,url){  
+  async getDataBy(state,donnes){  
       try {
-        const d= await window.axios.get(url) ;
+        var d;
+        if(donnes.data==''){ 
+          d= await window.axios.get(donnes.url) ;
+        }else{  
+          d= await window.axios.get(donnes.url,{params:donnes.data}) ;
+        }
         state.data.response= d;
-      } catch (e) {
-        console.log(e)
+      } catch (e) { 
         state.data.response= e;
       }  
   },
@@ -50,9 +55,6 @@ export default createStore({
         this.state.messageDialogue.shown=true;
         this.state.messageDialogue.success=d.data.status;
         this.state.messageDialogue.message='Enregistrement fait'
-        setTimeout(() => { 
-          this.state.formulaire=false;
-        }, 3000);
       }if(d.data.status==false){ 
         this.state.messageDialogue.shown=true;
         this.state.messageDialogue.success=d.data.status;
@@ -66,6 +68,25 @@ export default createStore({
     setTimeout(() => {
       this.state.messageDialogue.shown=false;
     }, 2800);
+  },
+  async deleteData(state,donnes){  
+     try {
+      const d= await window.axios.post(donnes.url,donnes.data) ;  
+      console.log(d)
+      if(d.data.status==true){ 
+        this.state.messageDialogue.shown=true;
+        this.state.messageDialogue.success=d.data.status;
+        this.state.messageDialogue.message='Suppréssion fait' 
+      }if(d.data.status==false){ 
+        this.state.messageDialogue.shown=true;
+        this.state.messageDialogue.success=d.data.status;
+        this.state.messageDialogue.message='Erreur de suppréssion';
+      } 
+    } catch (e) {
+      this.state.messageDialogue.shown=true;
+      this.state.messageDialogue.success=false;
+      this.state.messageDialogue.message=e.message 
+    }  
   }
   },
   actions: {

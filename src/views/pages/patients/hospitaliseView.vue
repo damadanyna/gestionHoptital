@@ -14,8 +14,8 @@
         </div>
       <table class=" w-full  rounded-lg "> 
         <tr  :class="this.store.darkMode==true?' bg-stone-100 ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200">
-          <th class=" px-5 py-3 text-start cursor-pointer " @click="shortOrder(item)"  v-for="item,i in table_col" :key="i" 
-          :class="i==0?' w-20':i==2?' w-20':i==3?' w-32':i==4?' w-28':i==5?' w-20':i==6?' w-32':i==7?' w-32':i==8?' w-32':''"  v-text="i==8?'':item"></th>
+          <th class=" px-5 py-3 text-start cursor-pointer " @click="shortOrder(item[1])"  v-for="item,i in table_col" :key="i" 
+          :class="i==0?' w-20':i==2?' w-20':i==3?' w-32':i==4?' w-28':i==5?' w-20':i==6?' w-32':i==7?' w-32':i==8?' w-32':''"  v-text="i==8?'':item[0]"></th>
         </tr>
         <tbody> 
           <tr v-for="item,j in this.store.data.response.data.patients" :key="j" :class="this.store.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-stone-700 text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b ">
@@ -90,6 +90,7 @@
   data(){
     return {
       //Models anle patients
+      shotValue:'patient_num',
       patients:{}, 
       timer:null,
       store:this.$store.state,
@@ -170,13 +171,12 @@
               type:'text' 
             }, 
           ]
-        ]
+        ],
       }
       ,
       indexPage:1, 
-      urlPatients:'Liste des Patients',
-      table_col:['N°','Nom et prenom','Casier','Date Naiss','Age','Sexe','Dern Visite','Retour',''], 
-      
+      urlPatients:'Liste des Patients', 
+      table_col:[['N°','patient_num' ],['Nom et prenom','patient_name_and_lastname' ],['Casier','patient_casier' ],['Date Naiss','patient_date_naiss' ],['Age','patient_age' ],['Sexe','patient_sexe' ], ['Dern Visite','patient_dern_visite' ],['Retour','patient_date_retour' ],''], 
     }
   },
   /*  
@@ -184,7 +184,8 @@
   */ 
   methods:{
     shortOrder(val){
-      alert(val)
+      this.shotValue=val
+        this.$store.commit('getDataBy',{url:'/patients',data:{sort_by:this.shotValue} });   
     },
     showDialog(){
       this.store.showDialog=true
@@ -194,7 +195,7 @@
     }, 
     initData(){ 
       this.timer=setInterval(() => { 
-        this.$store.commit('getDataBy','/patients');   
+        this.shortOrder(this.shotValue)
       }, 200 ); 
       setTimeout(() => {
         clearInterval(this.timer)
@@ -202,6 +203,7 @@
     },
     getUser(patient){
       this.store.statut.url='/patient';
+      this.$store.state.statut.methode='saveData'
       this.store.formulaire=true;
       this.formulaire.data[0][0].model[1]=patient.patient_num;
       this.formulaire.data[0][1].model[1]=patient.patient_name_and_lastname;
@@ -219,11 +221,16 @@
     deleteIt(patient){ 
       this.store.statut.save=false;
       this.store.messageYesNoDialogue=true
+      this.$store.state.statut.url='/patients'
+      this.$store.state.statut.methode='deleteData'
+      this.$store.state.dataSending={ patient_num:patient.patient_num }
+       
       this.store.statut.title=patient.patient_name_and_lastname
     },
     addNew(){
       this.store.statut.save=true;
       this.$store.state.statut.url='/patient'
+      this.$store.state.statut.methode='saveData'
       // this.store.statut.url='/patient';
       this.store.formulaire=true
       this.formulaire.data[0][0].model[1]='';
@@ -241,7 +248,10 @@
     }
   },
   mounted(){ 
+    setInterval(() => {
+      
      this.initData() 
+    }, 500);
   }, 
 }
   /*
