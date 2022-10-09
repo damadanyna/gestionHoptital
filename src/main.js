@@ -8,7 +8,7 @@ import axios from 'axios'
 
 window.axios = axios
 
-window.axios.defaults.baseURL = '//localhost:4044/api'; 
+window.axios.defaults.baseURL = 'http://localhost:4044/api'; 
 createApp(App)
     .use(store) 
     .use(router)

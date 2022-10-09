@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.$store.state.darkMode==true?' bg-stone-100':' bg-stone-600'" class=" flex flex-row h-full  start-window-drag ">
+  <div :class="this.$store.state.darkMode==true?' bg-stone-100':' bg-params'" class=" flex flex-row h-full  start-window-drag ">
          
     <welvomeView v-if="!this.$store.state.data.user.logged " class=" w-full"></welvomeView>
     <div v-else class="stop-window-drag w-full flex flex-row h-full">
@@ -38,4 +38,7 @@ export default {
   *{
     transition: 300ms;
   } 
+  .bg-params{
+    background:#242327
+    } 
 </style>

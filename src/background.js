@@ -20,8 +20,7 @@ async function createWindow() {
     minWidth:1080,
     autoHideMenuBar: true,
     frame: false,
-    webPreferences: {
-      
+    webPreferences: { 
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
@@ -40,8 +39,7 @@ async function createWindow() {
   }
 }
 
-// Quit when all windows are closed.
-//mteny angal la zany??
+// Quit when all windows are closed. 
 app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q

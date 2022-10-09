@@ -2,8 +2,8 @@
   <div class="patientsCss flex flex-col w-full   ">   
     
     <!-- tableau -->
-      <div :class="this.$store.state.darkMode==true?' bg-white  my-shadow ':' bg-stone-700'" class=" mt-4 rounded-lg   " >
-        <div class=" px-4">
+    <div v-if="this.store.data.response.status" :class="this.store.darkMode==true?' bg-white  my-shadow ':' bg-stone-700'" class=" mt-4 rounded-lg h-full justify-between flex flex-col" >
+      <div><div class=" px-4">
           <div class=" text-stone-700 text-2xl pb-7 font-bold flex justify-end">
             <div class=" bg-indigo-500 px-4 rounded-b-2xl">
               <span class=" text-stone-300 ">Gestion des Patients </span> 
@@ -13,26 +13,33 @@
           </div>
         </div>
       <table class=" w-full  rounded-lg "> 
-        <tr  :class="this.$store.state.darkMode==true?' bg-stone-100 ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200">
+        <tr  :class="this.store.darkMode==true?' bg-stone-100 ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200">
           <th class=" px-5 py-3 text-start cursor-pointer " @click="shortOrder(item)"  v-for="item,i in table_col" :key="i" 
           :class="i==0?' w-20':i==2?' w-20':i==3?' w-32':i==4?' w-28':i==5?' w-20':i==6?' w-32':i==7?' w-32':i==8?' w-32':''"  v-text="i==8?'':item"></th>
         </tr>
         <tbody> 
-          <tr v-for="j in 13" :key="j" :class="this.$store.state.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-stone-700 text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b ">
-            <td  :class="this.$store.state.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 "  v-for="i in 8" :key="i">val{{ j}}</td>
-            <td   :class="this.$store.state.darkMode==true?' bg-white':' bg-stone-700 text-stone-200'" class=" px-5  py-1  "   >
+          <tr v-for="item,j in this.store.data.response.data.patients" :key="j" :class="this.store.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-stone-700 text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b ">
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_num"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_name_and_lastname"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_casier"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_naiss"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_age"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_sexe"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_dern_visite"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_retour"></td>
+            <td   :class="this.store.darkMode==true?' bg-white':' bg-stone-700 text-stone-200'" class=" px-5  py-1  "   >
               <div class=" group-hover:flex  flex-row hidden">
-                <div @click="this.$store.state.messageYesNoDialogue.shown=true" class=" transform hover:scale-125 pr-1 mr-4 cursor-pointer"  :title="'Supprimer de' +j"> 
+                <div @click="deleteIt(item)" class=" transform hover:scale-125 pr-1 mr-4 cursor-pointer"  :title="'Supprimer de' +j"> 
                   <svg class="w-5" viewBox="0 0 24 24"><path class=" fill-current text-red-600" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z" /></svg>
                 </div>
-                <div  class=" transform hover:scale-125 pr-1 ml-4 cursor-pointer"  :title="'Editer' +j">
-                  <svg class=" w-5" viewBox="0 0 24 24"><path :class="this.$store.state.darkMode==true?' text-indigo-700 ':'  text-indigo-400'" class="fill-current" d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1z" /></svg>
+                <div @click=" getUser(item)" class=" transform hover:scale-125 pr-1 ml-4 cursor-pointer"  :title="'Editer' +j">
+                  <svg class=" w-5" viewBox="0 0 24 24"><path :class="this.store.darkMode==true?' text-indigo-700 ':'  text-indigo-400'" class="fill-current" d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1z" /></svg>
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
-      </table> 
+      </table></div> 
       <div class=" px-4 py-9 justify-between flex border-t border-stone-300 pt-3"> 
         <div class=" flex flex-col ">
           <div class=" flex flex-row">
@@ -47,34 +54,45 @@
             </div>
           </div>
         </div> 
-        <div :class="this.$store.state.darkMode==true?'bg-stone-400 ':' bg-indigo-700 my-shadow'" class=" absolute bottom-6 right-5 flex flex-row px-4 py-3 rounded-full">
+        <div @click="addNew()" :class="this.store.darkMode==true?'bg-stone-400 ':' bg-indigo-700 my-shadow'" class=" absolute bottom-6 right-5 flex flex-row px-4 py-4 rounded-full">
 
-          <div  @click="this.$store.state.formulaire=true" class=" group flex flex-col cursor-pointer" title="Ajouter une nouvelle patients ">
+          <div  class=" group flex flex-col cursor-pointer" title="Ajouter une nouvelle patients ">
             <div class=" group-hover:scale-125 flex flex-row justify-center">
-              <div class="flex flex-row rounded-full border border-white">
+              <div class="flex flex-row rounded-full ">
                 <svg class=" w-7" viewBox="0 0 24 24"><path  class=" fill-current text-white hover:text-blue-400"  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" /></svg>
               </div>
-            </div>
-            <span class=" font-medium text-xs text-white hover:text-stone-900">Ajouter</span>
+            </div> 
           </div>
            
         </div>
       </div>
     </div> 
+    <div v-else class="flex w-full justify-center items-center h-full">
+      <div class="flex flex-col items-center">   
+        <svg class=" w-14" viewBox="0 0 24 24"><path d="M21.4 7.5c.8.8.8 2.1 0 2.8l-2.8 2.8-7.8-7.8 2.8-2.8c.8-.8 2.1-.8 2.8 0l1.8 1.8 3-3 1.4 1.4-3 3 1.8 1.8m-5.8 5.8-1.4-1.4-2.8 2.8-2.1-2.1 2.8-2.8-1.4-1.4-2.8 2.8-1.5-1.4-2.8 2.8c-.8.8-.8 2.1 0 2.8l1.8 1.8-4 4 1.4 1.4 4-4 1.8 1.8c.8.8 2.1.8 2.8 0l2.8-2.8-1.4-1.4 2.8-2.9z" /></svg>
+        <span class=" text-indigo-400 text-2xl ">Erreur de connexion</span>
+        <span class=" text-stone-200 text-sm ">Verifier la connexion au serveur</span>
+        <span class=" text-stone-200 text-sm " v-text="this.store.data.response"> </span>
+      </div>
+    </div>
     <!-- formulaire Popup -->  
-    <inputVue  :params="formulaire" /> 
+    <inputVue :params="formulaire" /> 
+    <dialogYesNo :safe="this.store.statut"  /> 
   </div> 
 </template>
  <script> 
+ import dialogYesNo from '@/components/yesOrNoView.vue'
  import inputVue from '@/components/inputView.vue'
   export default { 
     components:{ 
-      inputVue
+      inputVue,dialogYesNo, 
     },
   data(){
     return {
       //Models anle patients
-      patients:{},
+      patients:{}, 
+      timer:null,
+      store:this.$store.state,
       formulaire:{
         dialogue:{text:'patients' }, 
         title:{text:'Fiche individuelle',size:''},  
@@ -83,31 +101,31 @@
             {
               label:'Numéro',
               placeholder:'Ex: 1234...',
-              model:'',
+              model:['patient_num',''],
               type:'number' 
             },
             {
               label:'Nom et Prénom',
               placeholder:'Ex: Rakoto...',
-              model:'',
+              model:['patient_name_and_lastname',''],
               type:'text' 
             },
             {
               label:'Date de Naissance',
               placeholder:'Ex: 1234...',
-              model:'',
+              model:['patient_date_naiss',''],
               type:'date' 
             }, 
             {
               label:'Proféssion',
               placeholder:'Ex: Mpampianatra...',
-              model:'',
+              model:['patient_profession',''],
               type:'text' 
             },
             {
-              label:'Caisier',
+              label:'Caissier',
               placeholder:'Ex: Rakoto...',
-              model:'',
+              model:['patient_casier',''],
               type:'text' 
             },
 
@@ -117,38 +135,38 @@
                 {
                   label:'Sexe',
                   placeholder:'Masculin/Fémin',
-                  model:'',
+                  model:['patient_sexe',''],
                   type:'text' 
                 },
                 {
                   label:'Age',
                   placeholder:'Ex: 24',
-                  model:'',
+                  model:['patient_age',''],
                   type:'number' 
                 },
             ],
             {
               label:'Adresse',
               placeholder:'Ex: Ampisikinana...',
-              model:'',
+              model:['patient_adresse',''],
               type:'text' 
             },
             {
               label:'Dernière Viste',
               placeholder:'Ex: 1234...',
-              model:'',
+              model:['patient_dern_visite',''],
               type:'date' 
             },
             {
               label:'Date de Retour',
               placeholder:'Ex: 1234...',
-              model:'',
+              model:['patient_date_retour',''],
               type:'date' 
             },
             {
               label:'Note',
               placeholder:'Ex: ...',
-              model:'',
+              model:['patient_note',''],
               type:'text' 
             }, 
           ]
@@ -161,19 +179,71 @@
       
     }
   },
+  /*  
+    reto tokony esorina fa miverina: paitient_id,patients_lastname, patients_name 
+  */ 
   methods:{
     shortOrder(val){
       alert(val)
-    },showDialog(){
-      this.$store.state.showDialog=true
+    },
+    showDialog(){
+      this.store.showDialog=true
       setTimeout(() => {
-        this.$store.state.showDialog=false
+        this.store.showDialog=false
       }, 2500);
     }, 
+    initData(){ 
+      this.timer=setInterval(() => { 
+        this.$store.commit('getDataBy','/patients');   
+      }, 200 ); 
+      setTimeout(() => {
+        clearInterval(this.timer)
+      }, 400); 
+    },
+    getUser(patient){
+      this.store.statut.url='/patient';
+      this.store.formulaire=true;
+      this.formulaire.data[0][0].model[1]=patient.patient_num;
+      this.formulaire.data[0][1].model[1]=patient.patient_name_and_lastname;
+      this.formulaire.data[0][2].model[1]=patient.patient_date_naiss;
+      this.formulaire.data[0][3].model[1]=patient.patient_profession;
+      this.formulaire.data[0][4].model[1]=patient.patient_casier ;
+
+      this.formulaire.data[1][0][0].model[1]=patient.patient_sexe;
+      this.formulaire.data[1][0][1].model[1]=patient.patient_age;
+      this.formulaire.data[1][1].model[1]=patient.patient_adresse;
+      this.formulaire.data[1][2].model[1]=patient.patient_dern_visite;
+      this.formulaire.data[1][3].model[1]=patient.patient_date_retour ;
+      this.formulaire.data[1][4].model[1]=patient.patient_note  ; 
+    },
+    deleteIt(patient){ 
+      this.store.statut.save=false;
+      this.store.messageYesNoDialogue=true
+      this.store.statut.title=patient.patient_name_and_lastname
+    },
+    addNew(){
+      this.store.statut.save=true;
+      this.$store.state.statut.url='/patient'
+      // this.store.statut.url='/patient';
+      this.store.formulaire=true
+      this.formulaire.data[0][0].model[1]='';
+      this.formulaire.data[0][1].model[1]='';
+      this.formulaire.data[0][2].model[1]='';
+      this.formulaire.data[0][3].model[1]='';
+      this.formulaire.data[0][4].model[1]='';
+
+      this.formulaire.data[1][0][0].model[1]='';
+      this.formulaire.data[1][0][1].model[1]='';
+      this.formulaire.data[1][1].model[1]='';
+      this.formulaire.data[1][2].model[1]='';
+      this.formulaire.data[1][3].model[1]='';
+      this.formulaire.data[1][4].model[1]=''; 
+    }
   },
-  mounted(){
-  }
-  }
+  mounted(){ 
+     this.initData() 
+  }, 
+}
   /*
   elidiot trosan levaly
   ljo za maka anao

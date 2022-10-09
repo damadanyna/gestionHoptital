@@ -75,7 +75,10 @@ export default {
     },
     setindexOngletOfPatientMenu(val){
       this.$store.state.indexOngletOfPatient[1] =val 
-    }
+    },
+
+  },
+  mounted(){
   }
   }
 </script>

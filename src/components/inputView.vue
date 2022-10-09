@@ -1,5 +1,4 @@
 <template>
-  
   <div  v-if="this.$store.state.formulaire==true" class="  justify-center items-center absolute blures w-full flex h-screen top-0 left-0"> 
     <div class=" flex flex-col py-5 bg-white my-shadow rounded-xl"> 
         <div class=" w-full flex text-center">
@@ -15,13 +14,13 @@
             <div v-for="input, k in item" :key="k">
               <div v-if="!input.length" class=" flex flex-col mb-3  px-7">  
                 <span class=" text-stone-500 text-sm" v-text="input.label"></span>
-                <input v-model="input.model"  :type="input.type" :placeholder=" input.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
+                <input v-model="input.model[1]"  :type="input.type" :placeholder=" input.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
               </div>
               <div v-if="input.length==2" class=" flex flex-row w-full justify-between mb-3 px-7 ">   
                 <div v-for="inputs ,j in input" :key="j" class=" flex flex-col "> 
                   <div  class=" flex flex-col">
                     <span class=" text-stone-500  text-sm" v-text="inputs.label"></span>
-                    <input :class="j==0?'':'w-20'" v-model="inputs.model"  :type="inputs.type" :placeholder=" inputs.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-32">
+                    <input :class="j==0?'':'w-20'" v-model="inputs.model[1]"  :type="inputs.type" :placeholder=" inputs.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-32">
                   </div> 
                 </div>
               </div>
@@ -29,26 +28,59 @@
           </div>  
         </div>
         <div class=" w-full flex flex-center px-20">
-          <button @click="this.$store.state.messageYesNoDialogue=true" class=" bg-stone-400 w-full py-2 rounded-xl text-white font-semibold">Enregistrer</button>
+          <button @click="saveData()" class=" bg-stone-400 w-full py-2 rounded-xl text-white font-semibold">Enregistrer</button>
         </div>
       </div>
-      <yesOrNoVue :safe="statut"></yesOrNoVue> 
+      <yesOrNoVue :safe="this.$store.state.statut"></yesOrNoVue> 
     </div> 
+    <!-- <dialogCom />  -->
 </template>
 
 <script>
-  import yesOrNoVue from './yesOrNoView.vue'
+// import dialogCom from './dialogueView.vue'
+import yesOrNoVue from './yesOrNoView.vue'
 export default {
-    components:{yesOrNoVue},
+    components:{yesOrNoVue,
+    // dialogCom
+    },
     props:{params:{}},
     data(){
-      return{  
+      return{   
         formulaire:this.params,
-        statut:{save:true,title:'',query:''},
       } 
     },
+    methods:{
+      getInputValue(){ 
+        var liste=[];
+        var array=this.formulaire.data;
+        if(array.length>0){ 
+          for (let i = 0; i < array.length; i++) {
+            const element = array[i]; 
+            for (let j = 0; j < element.length; j++) {
+              const element2 = element[j];
+              if(element2.length>0){
+                for (let l = 0; l < element2.length; l++) {
+                  const element3 = element2[l]; 
+                  liste.push([element3.model[0],element3.model[1]]) 
+                } 
+              }else{
+                liste.push([element2.model[0],element2.model[1]])  
+              }
+            }
+          } 
+        } 
+        this.$store.state.dataSending=Object.fromEntries(liste);  
+      },
+      saveData(){ 
+        this.getInputValue();
+        this.$store.state.messageYesNoDialogue=true;
+        this.$store.state.statut.save=true; 
+        this.$store.state.statut.title="";
+        console.log(this.$store.state.statut)
+      }
+    },
     mounted(){
-      this.statut.title=this.params.dialogue.text;
+      this.$store.state.statut.title=this.params.dialogue.text; 
     }
     
 }
