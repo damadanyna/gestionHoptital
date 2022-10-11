@@ -2,10 +2,10 @@
   <div class="patientsCss flex flex-col w-full   ">   
     
     <!-- tableau -->
-    <div v-if="this.store.data.response.status" :class="this.store.darkMode==true?' bg-white  my-shadow ':' bg-stone-700'" class=" mt-4 rounded-lg h-full justify-between flex flex-col" >
+    <div v-if="this.store.data.response.status" :class="this.store.darkMode==true?' bg-white  my-shadow ':' bg-params_ border_'" class=" mt-4 rounded-lg h-full justify-between flex flex-col" >
       <div><div class=" px-4">
           <div class=" text-stone-700 text-2xl pb-7 font-bold flex justify-end">
-            <div class=" bg-indigo-500 px-4 rounded-b-2xl">
+            <div   :class="this.$store.state.darkMode==true?' bg-indigo-500 ':' bg-indigo-600 border_'"  class="  px-4 rounded-b-2xl">
               <span class=" text-stone-300 ">Gestion des Patients </span> 
               <span class="text-white"> ></span > 
               <span class="text-white" @click="optionPatients=true" v-text="urlPatients">  </span > 
@@ -13,21 +13,23 @@
           </div>
         </div>
       <table class=" w-full  rounded-lg "> 
-        <tr  :class="this.store.darkMode==true?' bg-stone-100 ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200">
-          <th class=" px-5 py-3 text-start cursor-pointer " @click="shortOrder(item[1])"  v-for="item,i in table_col" :key="i" 
-          :class="i==0?' w-20':i==2?' w-20':i==3?' w-32':i==4?' w-28':i==5?' w-20':i==6?' w-32':i==7?' w-32':i==8?' w-32':''"  v-text="i==8?'':item[0]"></th>
+        <tr  :class="this.store.darkMode==true?' bg-stone-100  ':' bg-stone-600 text-stone-100 '"  class="  border-stone-200"> 
+          <th class=" px-5 py-3  text-start cursor-pointer " @click="shortOrder(item[1])"  v-for="item,i in table_col" :key="i" 
+          :class="i==0?' w-16':i==2?' w-32':i==3?'w-4':i==4?'w-5':i==5?' w-32':i==6?' w-32':i==7?' w-32':i==8?' w-20':i==9?' ':i==table_col.length-1?'w-28':''"  v-text="i==table_col.length-1?'  ':item[0]"></th>
         </tr>
         <tbody> 
-          <tr v-for="item,j in this.store.data.response.data.patients" :key="j" :class="this.store.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-stone-700 text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b ">
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_num"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_name_and_lastname"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_casier"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_naiss"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_age"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_sexe"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_dern_visite"></td>
-            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-stone-700 text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_retour"></td>
-            <td   :class="this.store.darkMode==true?' bg-white':' bg-stone-700 text-stone-200'" class=" px-5  py-1  "   >
+          <tr    v-for="item,j in this.store.data.response.data.patients" :key="j" :class="this.store.darkMode==true?' border-stone-200  hover:border-stone-300':' bg-params_ text-stone-400 border-stone-600 hover:bg-indigo-700'" class=" group border-b">
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_num"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_name_and_lastname"></td> 
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_naiss"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_age"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_sexe"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_dern_visite"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_date_retour"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_adresse"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_profession"></td>
+            <td  :class="this.store.darkMode==true?' bg-white text-stone-600':' bg-params_ text-stone-200'" class=" px-5  py-1 " v-text="item.patient_note"></td>
+            <td   :class="this.store.darkMode==true?' bg-white':' bg-params_ text-stone-200'" class="   py-1  "   >
               <div class=" group-hover:flex  flex-row hidden">
                 <div @click="deleteIt(item)" class=" transform hover:scale-125 pr-1 mr-4 cursor-pointer"  :title="'Supprimer de' +j"> 
                   <svg class="w-5" viewBox="0 0 24 24"><path class=" fill-current text-red-600" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z" /></svg>
@@ -103,7 +105,7 @@
               label:'Numéro',
               placeholder:'Ex: 1234...',
               model:['patient_num',''],
-              type:'number' 
+              type:'text' 
             },
             {
               label:'Nom et Prénom',
@@ -124,10 +126,11 @@
               type:'text' 
             },
             {
-              label:'Caissier',
+              label:'Prise en charge',
               placeholder:'Ex: Rakoto...',
-              model:['patient_casier',''],
-              type:'text' 
+              model:['prise_en_charge',''],
+              type:null ,
+              option:['Non','Oui']
             },
 
           ],
@@ -137,7 +140,8 @@
                   label:'Sexe',
                   placeholder:'Masculin/Fémin',
                   model:['patient_sexe',''],
-                  type:'text' 
+                  type:null ,
+                  option:['','M','F']
                 },
                 {
                   label:'Age',
@@ -176,12 +180,21 @@
       ,
       indexPage:1, 
       urlPatients:'Liste des Patients', 
-      table_col:[['N°','patient_num' ],['Nom et prenom','patient_name_and_lastname' ],['Casier','patient_casier' ],['Date Naiss','patient_date_naiss' ],['Age','patient_age' ],['Sexe','patient_sexe' ], ['Dern Visite','patient_dern_visite' ],['Retour','patient_date_retour' ],''], 
+      table_col:[
+        ['N°','patient_num' ],
+        ['Nom et prenom','patient_name_and_lastname' ] ,
+        ['Date Naiss','patient_date_naiss' ],
+        ['Age','patient_age' ],
+        ['Sexe','patient_sexe' ],
+        ['Date retour','patient_date_retour' ],
+        ['Dern Visite','patient_dern_visite' ], 
+        ['Adresse','patient_adresse' ],
+        ['Profession','patient_profession' ],
+        ['Note','patient_note' ],
+        ''
+        ], 
     }
-  },
-  /*  
-    reto tokony esorina fa miverina: paitient_id,patients_lastname, patients_name 
-  */ 
+  }, 
   methods:{
     shortOrder(val){
       this.shotValue=val
@@ -194,8 +207,8 @@
       }, 2500);
     }, 
     initData(){ 
-      this.timer=setInterval(() => { 
-        this.shortOrder(this.shotValue)
+      this.timer=setInterval(() => {  
+        this.$store.commit('getDataBy',{url:'/patients',data:{sort_by:this.shotValue} });   
       }, 200 ); 
       setTimeout(() => {
         clearInterval(this.timer)
@@ -247,11 +260,8 @@
       this.formulaire.data[1][4].model[1]=''; 
     }
   },
-  mounted(){ 
-    setInterval(() => {
-      
-     this.initData() 
-    }, 500);
+  mounted(){   
+     this.initData()  
   }, 
 }
   /*

@@ -41,4 +41,13 @@ export default {
   .bg-params{
     background:#242327
     } 
+  .bg-params_{
+    background:#2b2a2e;
+    } 
+  .border_{
+    border:#1d1d1d solid 1px;
+    } 
+  .manuBartopDark{
+    background:#161616;
+    } 
 </style>

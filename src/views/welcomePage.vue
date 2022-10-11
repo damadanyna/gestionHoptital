@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-row h-full  w-full  bg-slate-100 start-window-drag ">
-      <div class=" w-full h-full bg-stone-700  flex justify-center items-center">  
-          <div class=" absolute top-0 left-4">
-            <span class=" text-white">
-              Page d'Accueil
-            </span>
+    <div class="flex flex-row h-full w-full start-window-drag ">
+            <span  :class="this.$store.state.darkMode==true?' bg-white my-shadow ':' bg-params_ border_'"  class="  absolute bottom-0 px-7 py-1 rounded-t-xl right-3 text-xl font-bold text-center text-stone-300">HOPITAL LUTHERIENNE ANTSIRABE</span> 
+            
+      <div class=" w-full h-full flex justify-center items-center">  
+          <div class=" absolute top-0 left-4 w-full justify-between flex"> 
+            <span class=" mt-2 font-bold text-center text-white text-5xl">Accueil</span> <span></span>
           </div>         
         <div class="flex absolute top-0 right-0 px-3 flex-row w-36 justify-center z-50 h-7 stop-window-drag" >  
           <svg  class=" w-7 transform hover:scale-150 cursor-pointer mr-5 -mt-2" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path  class=" fill-current text-stone-200" d="M10 25.5v-3h28v3Z"/></svg>
@@ -128,9 +128,10 @@
       methods:{
         login(){
           this.$store.state.data.user.logged=true
-          this.$store.state.formLogin=false
+          this.$store.state.formLogin=false 
         },
         selectedBox(i){
+          this.$store.state.data.user.access=i 
           this.$store.state.formLogin=true
           this.index=i;
         }

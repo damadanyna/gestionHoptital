@@ -14,13 +14,19 @@
             <div v-for="input, k in item" :key="k">
               <div v-if="!input.length" class=" flex flex-col mb-3  px-7">  
                 <span class=" text-stone-500 text-sm" v-text="input.label"></span>
-                <input v-model="input.model[1]"  :type="input.type" :placeholder=" input.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
+                <input v-if="input.type!=null" v-model="input.model[1]"  :type="input.type" :placeholder=" input.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-64">
+                <select  v-model="input.model[1]"  v-else name="" id="" class=" bg-white rounded-lg py-1 px-3 focus:border-indigo-600 border border-stone-300 outline-none">
+                  <option v-for="list,k in input.option" :key="k" :value="list"  v-text="list"></option> 
+                </select> 
               </div>
               <div v-if="input.length==2" class=" flex flex-row w-full justify-between mb-3 px-7 ">   
                 <div v-for="inputs ,j in input" :key="j" class=" flex flex-col "> 
                   <div  class=" flex flex-col">
                     <span class=" text-stone-500  text-sm" v-text="inputs.label"></span>
-                    <input :class="j==0?'':'w-20'" v-model="inputs.model[1]"  :type="inputs.type" :placeholder=" inputs.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-32">
+                    <input v-if="inputs.type!=null"  :class="j==0?'':'w-20'" v-model="inputs.model[1]"  :type="inputs.type" :placeholder=" inputs.placeholder" class=" border border-stone-300 outline-none rounded-lg py-1 px-3 focus:border-indigo-600 w-32">
+                    <select  v-else v-model="inputs.model[1]" name="" id="" class=" bg-white rounded-lg py-1 px-3 focus:border-indigo-600 border border-stone-300 outline-none">
+                      <option v-for="list,k in inputs.option" :key="k" :value="list" v-text="list"></option> 
+                    </select> 
                   </div> 
                 </div>
               </div>

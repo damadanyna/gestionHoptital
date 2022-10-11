@@ -2,13 +2,14 @@
  import { createStore } from 'vuex' 
 export default createStore({
   state: {
-    darkMode:false,
     data:{
       //donnés utilisateur
       user:{
           nom:'admin',
           pwd:'admin',
-          logged:true
+          logged:true,
+          //connexion 
+          access:3
       },
       //donnés clients
       clients:{},
@@ -16,11 +17,15 @@ export default createStore({
       response:{}
     }, 
     dataSending:{},
+    pageIndex:0,
     statut:{save:'',title:'',url:'',methode:''
     },
+    
     //charge l'affiche du login au début de l'application
+    darkMode:false,
     formLogin:false,
-    formulaire:false, 
+    formulaire:false,
+    plusOption:false, 
     messageYesNoDialogue:false, 
     
     indexOnglet:0,
@@ -33,13 +38,8 @@ export default createStore({
   },
   mutations: { 
   async getDataBy(state,donnes){  
-      try {
-        var d;
-        if(donnes.data==''){ 
-          d= await window.axios.get(donnes.url) ;
-        }else{  
-          d= await window.axios.get(donnes.url,{params:donnes.data}) ;
-        }
+      try { 
+         const d= await window.axios.get(donnes.url,{params:donnes.data}) ; 
         state.data.response= d;
       } catch (e) { 
         state.data.response= e;
@@ -57,6 +57,7 @@ export default createStore({
         this.state.messageDialogue.message='Enregistrement fait'
       }if(d.data.status==false){ 
         this.state.messageDialogue.shown=true;
+        console.log(d)
         this.state.messageDialogue.success=d.data.status;
         this.state.messageDialogue.message='Numéro de patient déjà existé';
       } 

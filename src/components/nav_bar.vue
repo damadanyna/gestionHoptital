@@ -25,16 +25,17 @@
       </div> 
       <!-- title -->
       <div v-if="wrapMenu" class=" pt-14" ><span class=" delay-100 text-sm text-stone-400 text-center px-6" >APPS & PAGES</span></div>
+      
       <!-- liste -->
       <div :class="wrapMenu ? '  px-6 mt-7'  : 'mt-20'" class="flex flex-col ">
-        <div class=" flex w-full"  v-for="liste,i in listItem" :key="i" >
-          <router-link   v-if="i==1 || i==4 || i==5 "  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-1 py-4  px-3'" :to="liste.url" class=" w-full ">
+        <div  v-for="liste,i in listItem" :key="i" class="flex w-full" > 
+          <router-link   v-if="i==this.$store.state.data.user.access || i==4 || i==5 "  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-1 py-4  px-3'" :to="liste.url" class=" w-full ">
             <div class="flex flex-row">
               <div :title="liste.text"  v-html="liste.ico"></div>
               <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
             </div>
-          </router-link>
-          <div   @click=" this.$store.state.data.user.logged=false "  v-if="  i==6"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : ' my-1 py-4    px-3'" :to="liste.url" class=" w-full ">
+          </router-link> 
+         <div   @click=" this.$store.state.data.user.logged=false "  v-if="  i==6"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : ' my-1 py-4    px-3'" :to="liste.url" class=" w-full ">
             <div class="flex flex-row cursor-pointer" id="sortie_cont">
               <div :title="liste.text"  v-html="liste.ico"></div>
               <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
@@ -73,16 +74,6 @@
           </svg>`,
           },
           {
-            text: 'Stocks',
-            url: '/stocks',
-            ico: `
-          <svg class=" w-6 transform hover:scale-150 group cursor-pointer" viewBox="0 0 24 24">
-           
-            <path 
-              class="fill-current group-hover:text-white" d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
-          </svg>`,
-          },
-          {
             text: 'Caisse',
             url: '/caisse',
             ico: `
@@ -91,6 +82,16 @@
               class="fill-current group-hover:text-white"
               d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"
             />
+          </svg>`,
+          },
+          {
+            text: 'Stocks',
+            url: '/stocks',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 group cursor-pointer" viewBox="0 0 24 24">
+           
+            <path 
+              class="fill-current group-hover:text-white" d="M17 13h-4v4h-2v-4H7v-2h4V7h2v4h4m2-8H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
           </svg>`,
           },
           {
@@ -142,8 +143,8 @@
   } 
   a.router-link-exact-active,a.router-link-exact-active path {
     background:#181818; 
-    border-left:3px solid #4F46E5;
-    fill: #4F46E5;
+    border-left:3px solid #5249ff;
+    fill: #5249ff;
   } 
   a {
     border-left:3px solid transparent;

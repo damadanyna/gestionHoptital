@@ -1,7 +1,7 @@
 <template>
   <div class="patients flex flex-col w-full h-full pb-2 "> 
         <div class=" top-0 absolute flex flex-row w-full start-window-drag " > 
-              <div  :class="this.$store.state.darkMode==true?' nav ':' bg-indigo-800'" class="absolute flex text-sm z-30 text-indigo-100 py-1 rounded-br-2xl px-4 stop-window-drag ">      
+              <div  :class="this.$store.state.darkMode==true?' nav ':' manuBartopDark'" class="absolute flex text-sm z-30 text-indigo-100 py-1 rounded-br-2xl px-4 stop-window-drag ">      
                 <span v-for="item,i in list_nav" :key="i" @click="setPindexOngletOfPatient(i)" :class="this.$store.state.indexOngletOfPatient[0] ==i?' bg-indigo-500 ':' border-transparent'" class=" px-3 cursor-pointer rounded-2xl " :title="item[1]" v-text="item[0]">  </span>
                </div>   
            <div class="flex flex-col  w-full z-0 h-7"> 
@@ -21,60 +21,66 @@
         </div>
         <!-- head bar -->
         <div  class=" flex flex-row  "> 
-          <div v-if="this.$store.state.indexOngletOfPatient[1]!=4" class=" my-shadow mr-5 flex bg-white rounded-full w-96 px-2 items-center justify-center"> 
+          <div  :class="this.$store.state.darkMode==true?' bg-white my-shadow ':' bg-params_ border_'"  v-if="this.$store.state.indexOngletOfPatient[1]!=4" class="mr-5 flex  rounded-full w-96 px-2 items-center justify-center"> 
               <svg class=" w-9 mb-2"  viewBox="0 0 24 24"><path class=" fill-current text-stone-400" d="M19.31 18.9c.44-.69.69-1.52.69-2.4 0-2.5-2-4.5-4.5-4.5S11 14 11 16.5s2 4.5 4.5 4.5c.87 0 1.69-.25 2.38-.68L21 23.39 22.39 22l-3.08-3.1m-3.81.1a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5m-5.91.2L3  " /></svg>
-              <input placeholder=" Rechercher" class=" px-3 w-full outline-none" type="text" name="" id="">
+              <input :class="this.$store.state.darkMode==true?' bg-white  text-slate-600':' bg-params_ text-white'" placeholder=" Rechercher" class=" px-3 w-full outline-none " type="text" name="" id="">
           </div>
-          <router-link to="/utilisateur" class=" my-shadow flex bg-white rounded-full p-2 ">
-            <svg class=" w-7" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z" /></svg>
+          <router-link  :class="this.$store.state.darkMode==true?' bg-white my-shadow  ':' bg-params_ border_'" to="/utilisateur" class="flex  rounded-full p-2 ">
+            <svg class=" w-7" viewBox="0 0 24 24"><path :class="this.$store.state.darkMode==true?' text-stone-600 ':' text-stone-100 '"  class=" fill-current" d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z" /></svg>
           </router-link>
         </div>  
       </div>
-      <div v-if="this.$store.state.indexOngletOfPatient[0]==0" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+      <!-- <div v-if="this.$store.state.indexOngletOfPatient[0]==0" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
         <hospitalisationViewVue v-if=" this.$store.state.indexOngletOfPatient[1]==2"></hospitalisationViewVue>
         <entrepriseViewVue v-else-if=" this.$store.state.indexOngletOfPatient[1]==0"></entrepriseViewVue> 
-      </div>
-      <div v-if="this.$store.state.indexOngletOfPatient[0]==1" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+      </div> -->
+      <div v-if="this.$store.state.indexOngletOfPatient[0]==0" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
         <hospitaliseViewVue></hospitaliseViewVue> 
       </div>
-      <div v-if="this.$store.state.indexOngletOfPatient[0]==2" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
+      <div v-if="this.$store.state.indexOngletOfPatient[0]==1" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
         <statistiqueViewVue></statistiqueViewVue> 
+      </div>
+      <div>
+        <optionView></optionView>
       </div>
   </div>
 </template>
 
 <script>
-  import statistiqueViewVue from './pages/patients/statistiqueView.vue'
-  import hospitalisationViewVue from './pages/patients/hospitalisationView.vue'
-  import hospitaliseViewVue from './pages/patients/hospitaliseView.vue' 
-  import entrepriseViewVue from './pages/patients/entrepriseView.vue'
+  import statistiqueViewVue from './pages/patients/statistiqueView.vue' 
+  import hospitaliseViewVue from './pages/patients/hospitaliseView.vue'  
+  import optionView from '../components/plusParamView.vue'
 
 export default {
   components:{ 
-    statistiqueViewVue,
-    hospitalisationViewVue,
-    entrepriseViewVue, 
+    statistiqueViewVue, 
+    optionView,
     hospitaliseViewVue},
   data(){
-  return {
+  return { 
     list_nav:[
-      ['Fiche','fiche entrepries', 
-        [
-          ['Entreprise','Fiche Entreprise'], 
-          ['Hospitalisation','Fiche Hospitalisation']
-        ]
-      ],
+      // ['Fiche','fiche entrepries', 
+      //   [
+      //     ['Entreprise','Fiche Entreprise'], 
+      //     ['Hospitalisation','Fiche Hospitalisation']
+      //   ]
+      // ],
       ['Liste des patients hospitalisés','Liste des patients hospitalisés'],
       ['Statistique hospitalisation','Fiche hospitalisation'],
+      ['Plus',"Plus d'option"],
     ],  
   } 
   },
   methods:{ 
     setPindexOngletOfPatient(val){
-      this.$store.state.indexOngletOfPatient[0] =val  
+      if(val!=2){ 
+        this.$store.state.indexOngletOfPatient[0] =val
+      }else{
+        this.$store.state.plusOption=true
+      } 
     },
     setindexOngletOfPatientMenu(val){
-      this.$store.state.indexOngletOfPatient[1] =val 
+        this.$store.state.indexOngletOfPatient[1] =val 
     },
 
   },
