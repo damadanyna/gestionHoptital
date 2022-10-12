@@ -1,5 +1,6 @@
 <template>
   <div class="patients flex flex-col w-full h-full pb-2 "> 
+    <span class=" text-white text-2xl">Gestion des accéss utilisateurs</span>
         <div class=" top-0 absolute flex flex-row w-full start-window-drag " >   
            <div class="flex flex-col  w-full z-0 h-7"> 
            </div>       

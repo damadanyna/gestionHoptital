@@ -17,7 +17,6 @@ export default createStore({
       response:{}
     }, 
     dataSending:{},
-    pageIndex:0,
     statut:{save:'',title:'',url:'',methode:''
     },
     
@@ -25,14 +24,22 @@ export default createStore({
     darkMode:false,
     formLogin:false,
     formulaire:false,
-    plusOption:false, 
     messageYesNoDialogue:false, 
     
+    plusOption:false, 
     indexOnglet:0,
     indexOngletOfConfig:0,
     indexOngletOfStock:[0,0],
-    indexOngletOfPatient:[0,0],
     messageDialogue:{shown:false,success:true,message:'success'}, 
+
+    
+    /* patient */
+    indexOngletOfPatient:[0,0],
+    pageIndex:0,
+    
+
+    /* caisse */
+    indexPageCaisse:true
   },
   getters: {
   },

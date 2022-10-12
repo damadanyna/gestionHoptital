@@ -5,6 +5,7 @@ import Patients from '../views/patientsView'
 import Stocks from '../views/stocksView.vue'
 import Configuration from '../views/configurationView.vue'
 import Utilisateur from '../views/utilisateurView.vue'
+import Hospitalisation from '../views/hospitalisationView.vue'
 import welcom from '../views/welcomePage.vue'
 
 const routes = [        
@@ -30,6 +31,11 @@ const routes = [
     path: '/caisse',
     name: 'caisse',
     component: Caisse
+  },
+  {
+    path: '/hospitalisation',
+    name: 'hospitalisation',
+    component: Hospitalisation
   },
   {
     path: '/patients',

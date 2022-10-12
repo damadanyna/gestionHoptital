@@ -44,12 +44,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.bg-custom{
-    background: rgba(0, 0, 0, 0.596);
-    z-index: 51;
-}
-.my-shadow2{
-    /* box-shadow: 0px 0px 16px black; */
-}
+<style scoped> 
 </style> 

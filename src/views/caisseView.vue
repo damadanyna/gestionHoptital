@@ -3,7 +3,7 @@
         <div class=" top-0 absolute flex flex-row w-full start-window-drag " > 
               <div  :class="this.$store.state.darkMode==true?' nav ':' manuBartopDark'" class="absolute flex text-sm z-30 text-indigo-100 py-1 rounded-br-2xl px-4 stop-window-drag ">      
                 <span v-for="item,i in list_nav" :key="i" @click="setPindexOngletOfPatient(i)" :class="this.$store.state.indexOngletOfPatient[0] ==i?' bg-indigo-500 ':' border-transparent'" class=" px-3 cursor-pointer rounded-2xl " :title="item[1]" v-text="item[0]">  </span>
-               </div>   
+              </div>   
            <div class="flex flex-col  w-full z-0 h-7"> 
            </div>       
             <div class="flex fixed -right-2  px-3 flex-row w-36 justify-center z-50 h-7 stop-window-drag" >  
@@ -34,38 +34,30 @@
         <hospitalisationViewVue v-if=" this.$store.state.indexOngletOfPatient[1]==2"></hospitalisationViewVue>
         <entrepriseViewVue v-else-if=" this.$store.state.indexOngletOfPatient[1]==0"></entrepriseViewVue> 
       </div> -->
+      <div >
+        <facture>  </facture>
+      </div>
       <div v-if="this.$store.state.indexOngletOfPatient[0]==0" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
         <hospitaliseViewVue></hospitaliseViewVue> 
       </div>
       <div v-if="this.$store.state.indexOngletOfPatient[0]==1" class=" flex  h-full overflow-y-auto mt-6 overflow-x-hidden  px-7 mb-4">   
         <statistiqueViewVue></statistiqueViewVue> 
       </div>
-      <div>
-        <optionView></optionView>
-      </div>
   </div>
 </template>
 
 <script>
-  import statistiqueViewVue from './pages/patients/statistiqueView.vue' 
+  import facture from './pages/caisse/factureView.vue'
   import hospitaliseViewVue from './pages/patients/hospitaliseView.vue'  
-  import optionView from '../components/plusParamView.vue'
 
 export default {
   components:{ 
-    statistiqueViewVue, 
-    optionView,
+    facture,  
     hospitaliseViewVue},
   data(){
-  return { 
-    list_nav:[
-      // ['Fiche','fiche entrepries', 
-      //   [
-      //     ['Entreprise','Fiche Entreprise'], 
-      //     ['Hospitalisation','Fiche Hospitalisation']
-      //   ]
-      // ],
-      ['Liste des patients hospitalisés','Liste des patients hospitalisés'],
+  return {  
+    list_nav:[ 
+      ['Facture',"Préparation d'encaissement"],
       ['Statistique hospitalisation','Fiche hospitalisation'],
       ['Plus',"Plus d'option"],
     ],  
@@ -73,11 +65,11 @@ export default {
   },
   methods:{ 
     setPindexOngletOfPatient(val){
-      if(val!=2){ 
+      if(val!=0 && val!=2){ 
         this.$store.state.indexOngletOfPatient[0] =val
       }else{
-        this.$store.state.plusOption=true
-      } 
+        this.$store.state.indexPageCaisse=true
+      }
     },
     setindexOngletOfPatientMenu(val){
         this.$store.state.indexOngletOfPatient[1] =val 

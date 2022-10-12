@@ -49,7 +49,7 @@
 <script>
   import statistiqueViewVue from './pages/patients/statistiqueView.vue' 
   import hospitaliseViewVue from './pages/patients/hospitaliseView.vue'  
-  import optionView from '../components/plusParamView.vue'
+  import optionView from './pages/patients/plusParamView.vue'
 
 export default {
   components:{ 
@@ -65,7 +65,7 @@ export default {
       //     ['Hospitalisation','Fiche Hospitalisation']
       //   ]
       // ],
-      ['Liste des patients hospitalisés','Liste des patients hospitalisés'],
+      ['Liste des patients','Liste de les patients'],
       ['Statistique hospitalisation','Fiche hospitalisation'],
       ['Plus',"Plus d'option"],
     ],  

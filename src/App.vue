@@ -50,4 +50,8 @@ export default {
   .manuBartopDark{
     background:#161616;
     } 
+  .bg-custom{
+      background: rgba(0, 0, 0, 0.596);
+      z-index: 51;
+  }
 </style>

@@ -29,13 +29,13 @@
       <!-- liste -->
       <div :class="wrapMenu ? '  px-6 mt-7'  : 'mt-20'" class="flex flex-col ">
         <div  v-for="liste,i in listItem" :key="i" class="flex w-full" > 
-          <router-link   v-if="i==this.$store.state.data.user.access || i==4 || i==5 "  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-1 py-4  px-3'" :to="liste.url" class=" w-full ">
+          <router-link   v-if="i==this.$store.state.data.user.access || i==4 || i==5 ||  i==listItem.length-2"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : 'my-1 py-4  px-3'" :to="liste.url" class=" w-full ">
             <div class="flex flex-row">
               <div :title="liste.text"  v-html="liste.ico"></div>
               <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
             </div>
-          </router-link> 
-         <div   @click=" this.$store.state.data.user.logged=false "  v-if="  i==6"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : ' my-1 py-4    px-3'" :to="liste.url" class=" w-full ">
+          </router-link>  
+         <div   @click=" this.$store.state.data.user.logged=false "  v-if="  i==listItem.length-1"  :class="wrapMenu ? ' m-1 py-1  px-1 ' : ' my-1 py-4    px-3'" :to="liste.url" class=" w-full ">
             <div class="flex flex-row cursor-pointer" id="sortie_cont">
               <div :title="liste.text"  v-html="liste.ico"></div>
               <span  v-if="wrapMenu"  v-text="liste.text"  class="  ml-3" ></span>
@@ -95,6 +95,17 @@
           </svg>`,
           },
           {
+            text: 'Hospitalisation',
+            url: '/Hospitalisation',
+            ico: `
+          <svg class=" w-6 transform hover:scale-150 group cursor-pointer" viewBox="0 0 24 24"> 
+            <path
+                  class="fill-current group-hover:text-white"
+              d="M2 22V7a1 1 0 0 1 1-1h4V2h10v4h4a1 1 0 0 1 1 1v15h-8v-5h-4v5H2M9 4v6h2V8h2v2h2V4h-2v2h-2V4H9M4 20h4v-3H4v3m0-5h4v-3H4v3m12 5h4v-3h-4v3m0-5h4v-3h-4v3m-6 0h4v-3h-4v3z"
+            />
+          </svg>`,
+          },
+          {
             text: 'Utilisateur',
             url: '/utilisateur',
             ico: `
@@ -116,7 +127,7 @@
           </svg>`,
           },
           {
-            text: 'Sort"ir',
+            text: 'Sortir',
             url: '/patients', 
             ico: `
           <svg class=" w-6 transform hover:scale-150 group cursor-pointer" viewBox="0 0 24 24">  
